@@ -25,5 +25,9 @@
 5. http 和 https 的区别/ http1.0 1.1 2.0 区别
 
 ## 2022.02.22
+1. 过一遍菜鸟教程的TS ()
+2. 复习xss 和 csrf 等 ()
+3. http 和 https 的区别 / http1.0 1.1 2.0 区别 ()
+4. bind_call_apply 区别 ()
 
 ## 2022.02.23
