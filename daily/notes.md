@@ -22,31 +22,38 @@
     - 500: 服务器内部错误
     - 504: 网管超时
 
-5. http 和 https 的区别/ http1.0 1.1 2.0 区别
+5. http 和 https 的区别/ http1.0 1.1 2.0 区别 (x)
 
 ## 2022.02.22
-1. 过一遍TS文档(https://ts.xcatliu.com/)
+1. 过一遍TS文档(https://ts.xcatliu.com/) (√)
     > 基础
     - 类型断言 (值as类型 或 <类型>值)
     - 泛型(T)
     - 联合类型(|)
     - 函数重载
+    
     > 进阶
     - 类型别名 & 字符串字面量类型
     - 类
     - 接口
 
-2. 复习xss 和 csrf 等 ()
+2. 复习xss 和 csrf 等 (x)
 
-3. http 和 https 的区别 / http1.0 1.1 2.0 区别 ()
+3. http 和 https 的区别 / http1.0 1.1 2.0 区别 (x)
 
-4. bind_call_apply 区别 ()
+4. bind_call_apply 区别 (x)
 
 5. 位运算的原理及运用场景 (√)
     - (vue3和react源码都有使用,判断节点类型)
     - 权限控制 (|赋予权限, &权限校验)
 
 ## 2022.02.23
+1. webpack (√)
+    - 阅读文档，了解plugin 运行机制及编写方法
+    - vue-cli serve 插件(vue-cli-infinite-plugin 源码阅读)
+
+
+## todo
 1. Promise 的使用及相关方法 / async await 的使用
 2. SPA 理解
 3.  
