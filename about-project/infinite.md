@@ -12,3 +12,23 @@
     - 打包模板 yarn template
     - 启动模板 yarn serve
     - 打包项目 yarn build
+
+
+
+## destop-micro
+
+> 1. why? 背景? 优缺点?
+
+> 2. qiankun 框架项目配置
+
+> 3. 难点？亮点？
+
+
+
+## cms
+
+> 1. cli
+
+> 2. 丰富组件
+
+> 3. 路由自动生成
