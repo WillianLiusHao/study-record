@@ -60,20 +60,34 @@
 ## 2022.03.03
 1. 刷算法
     - dp: 不同路径、买卖股票时机、剪绳子、跳跃游戏
-2. 复习bind/call/apply 不同及实现
-3. new 实现
+2. 复习bind/call/apply 不同及实现 (√)
+3. new 实现 (√)
     - 新建对象 -> 原型链 -> 绑定this -> 判断返回
 
 ## 2022.03.04
-1. 浏览器本地缓存
+1. 浏览器本地缓存 (√)
     - 区别：大小、何时失效、和服务器的交互方式
     - cookie: 4kb、过期时间、会自动携带都服务器
     - localStorage: >= 5M、手动删除、不会
     - sessionStorage: >= 5M、页面关闭、不会
-2. 深浅克隆
+2. 深浅克隆 (√)
     - 注意了解各种数据类型的存储方式，及如何判断
     - 深克隆用递归
-
+3. 函数柯里化 (√)
+4. 数据类型 (√)
+    - 基本(栈)
+        - Number
+        - String
+        - Boolean
+        - Null
+        - Undefined
+        - Symbol
+        - BigInt
+    - 复杂(堆)
+        - Object(Array, Function)
+5. 事件委托
+    - 事件流三个阶段： 捕获阶段 -> 目标阶段 -> 冒泡阶段
+    - 使用 event.target 获取事件触发位置
 ## todo
 1. Promise 的使用及相关方法 / async await 的使用
 2. SPA 理解
