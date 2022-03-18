@@ -114,9 +114,14 @@
 		- domain
 	- 如何删除 cookie ？
 
+
+## 2022.03.18
+
+1. keyof
+
 ## todo
 > js	
-1. 0.1 + 0.2 = 0.3
+1. 0.1 + 0.2 === 0.3
 
 > es6	
 1. Promise 的使用及相关方法 / async await 的使用
@@ -136,3 +141,5 @@
 > 尝鲜
 - Graphql
 - DevOps
+- CICD
+- Pinia
