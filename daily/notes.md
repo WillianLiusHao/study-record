@@ -117,7 +117,13 @@
 
 ## 2022.03.18
 
-1. keyof
+1. TS： keyof、typeof、Required、Partial、Pick
+2. interface 和 type 区别
+	- type 不可重复声明，合并只能使用 &
+	- interface可重复声明，且自动合并
+
+3. 万花筒的socket
+
 
 ## todo
 > js	

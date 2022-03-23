@@ -24,6 +24,7 @@
 
 - **`性能优化常见手段`**
 
+> 7. scoket.io
 
 
 ## destop-micro
@@ -45,6 +46,8 @@
 > 1. changelog
 
 > 2. 自动化测试(py)
+
+> 3. echarts
 
 
 ## cms
