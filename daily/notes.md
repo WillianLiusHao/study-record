@@ -114,7 +114,6 @@
 		- domain
 	- 如何删除 cookie ？
 
-
 ## 2022.03.18
 
 1. TS： keyof、typeof、Required、Partial、Pick
@@ -124,6 +123,12 @@
 
 3. 万花筒的socket
 
+## 2022.03.27
+
+1. Pinia
+   - createPinia
+   - storeToRefs：把 store 暴露的数据转为响应式的
+   - $patch：批量更新数据
 
 
 ## 2022.03.28
@@ -139,6 +144,7 @@
 
 
 ## todo
+
 > js	
 1. 0.1 + 0.2 === 0.3
 
