@@ -125,6 +125,19 @@
 3. 万花筒的socket
 
 
+
+## 2022.03.28
+
+1. <script setup>
+	- no return
+	- 组件自动注册，无需 components: {} 注册
+	- defineProps / defineEmits
+	- defineExpose
+2. npm run dev 发生了什么？
+
+
+
+
 ## todo
 > js	
 1. 0.1 + 0.2 === 0.3
@@ -132,6 +145,9 @@
 > es6	
 1. Promise 的使用及相关方法 / async await 的使用
 2. SPA 理解
+
+> 优化
+1. 关键渲染路径 CRP
 
 > node	
 1. nodejs 核心 API

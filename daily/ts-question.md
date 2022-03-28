@@ -1,9 +1,9 @@
 # ts 练习题
 
 > 常用内置工具函数、方法
+
   - keyof: 获取类型的键
   - typeof: 获取值的类型
-
   - Required: 把类型所有属性变必选
   - Partial: 把类型所有属性变可选
   
@@ -11,6 +11,8 @@
   - Omit: 从类型中去掉某些属性
 
 ## 第一题
+
+---
 
 - 希望参数a和b类型一致，不一致时给出报错信息
 ```ts
@@ -43,6 +45,8 @@ function add(a: string | number, b: string | number) {
 
 
 ## 第二题
+
+---
 
 - 实现一个 SetOptional 工具类型，把给定的 keys 变成可选的？
 - 实现一个 SetRequired 工具类型，把给定的 keys 变成必选的？
@@ -79,6 +83,8 @@ type SetRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
 
 ## ☆第三题
 
+---
+
 - 实现一个 ConditionalPick 工具类型，根据指定的条件生成新类型
 ```ts
 interface Example {
@@ -101,6 +107,9 @@ type ConditionalPick<T, P> = {[K in keyof T as T[K] extends P ? K : never]: T[K]
 
 
 ## 第四题
+
+---
+
 - 为函数增加某个类型的参数
 ```ts
 type Fn = (a: number, b: string) => number
@@ -127,7 +136,11 @@ type AppendArgument<F extends (...args: any) => any, A> = (x: A, ...arg: Paramet
 ```
 
 
+
 ## 第五题（？？？）
+
+---
+
 - 定义一个 NativeFlat 工具类型，支持把数组类型拍平（扁平化）。具体的使用示例如下所示：
 ```ts
 // 测试用例：
