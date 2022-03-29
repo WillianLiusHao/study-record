@@ -50,8 +50,9 @@
 - [ ] changelog
 - [ ] 自动化测试(py)
 - [x] echarts
+- [ ] html2Pdf
 - [ ] 移动端适配
-- [ ] pinia
+- [x] pinia + 持久化存储(`pinia-plugin-persistedstate`)
 
 
 

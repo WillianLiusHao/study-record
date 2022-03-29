@@ -141,6 +141,59 @@
 2. npm run dev 发生了什么？
 
 
+## 2022.03.29
+
+1. Pinia使用
+2. 持久化存储(`pinia-plugin-persistedstate`)原理
+	```js
+	// src/index.ts
+	function createPersistedState(factoryOptions = {}) {
+    return function(context) {
+         // context 拿到当前 store 的上下文
+         var _a, _b, _c, _d;
+         const {
+             options: { persist },
+             store
+         } = context;
+         if (!persist)
+             return;
+         const {
+             storage = (_a = factoryOptions.storage) != null ? _a : localStorage,
+             beforeRestore = (_b = factoryOptions.beforeRestore) != null ? _b : null,
+             afterRestore = (_c = factoryOptions.afterRestore) != null ? _c : null,
+             serializer = (_d = factoryOptions.serializer) != null ? _d : {
+                 serialize: JSON.stringify,
+                 deserialize: JSON.parse
+             },
+             key = store.$id,
+             paths = null
+         } = typeof persist != "boolean" ? persist : {};
+         // 调用外部的传入的 hook: beforeRestore 函数，并将 context 传给外部
+         // 外部定义的 beforeRestore 函数 可以对当前实例做修改
+         beforeRestore == null ? void 0 : beforeRestore(context);
+         
+         // !!! 每次注册当前插件的时候，会把 storage 中的所有数据 通过 $patch 批量存入 store
+         try {
+             const fromStorage = storage.getItem(key);
+             if (fromStorage)
+                 store.$patch(serializer.deserialize(fromStorage));
+         } catch (_error) {
+         }
+         
+	      // 调用外部的传入的 hook: afterRestore 函数，并将 context 传给外部
+         afterRestore == null ? void 0 : afterRestore(context);
+   
+         // !!! 订阅 vuex中的数据，每次store变化的时候，把新的数据存入 storage中
+         store.$subscribe((_mutation, state) => {
+             try {
+                 const toStore = Array.isArray(paths) ? pick(state, paths) : state;
+                 storage.setItem(key, serializer.serialize(toStore));
+             } catch (_error) {
+            }
+	      }, { detached: true });
+	  };
+	}
+	```
 
 
 ## todo
@@ -153,7 +206,11 @@
 2. SPA 理解
 
 > 优化
+1. **浏览器输入url到页面渲染发生了什么**
 1. 关键渲染路径 CRP
+
+> http
+1. TCP三次握手
 
 > node	
 1. nodejs 核心 API
@@ -170,4 +227,4 @@
 - Graphql
 - DevOps
 - CICD
-- Pinia
+- [x] Pinia
