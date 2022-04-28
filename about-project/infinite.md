@@ -88,7 +88,9 @@
 - [ ] html2Pdf
 - [ ] 移动端适配
 - [x] pinia + 持久化存储(`pinia-plugin-persistedstate`)
-
+- [x] 首屏加载优化
+   - ngnix 开启gzip压缩
+   - 前端 `compression-webpack-plugin` 插件压缩js和css
 
 
 
