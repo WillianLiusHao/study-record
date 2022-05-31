@@ -91,8 +91,18 @@
 - [x] 首屏加载优化
    - ngnix 开启gzip压缩
    - 前端 `compression-webpack-plugin` 插件压缩js和css
-
-
+- [x] html2canvas pdfjs
+   - 图片如何适配pdf大小
+   - **页眉页码**
+   - 清晰度问题：设置缩放比例，设置设备像素比
+   - **！！分页处理**
+      - 先将长图统一转成canvas
+      - 然后通过固定的A4纸宽高（减去页眉页码），新创建一个canvas，用于绘制当前页面的canvas
+      - 通过宽高和原始的canvas数据，对新创建的canvas进行数据填充
+      - 一页页绘制
+   - **！！！截断处理**
+      - 获取长图的dom，在绘制当页canvas时，判断当前最后一个元素高度是否被截断，截断则将此元素放至下一页
+   - **浏览器会限制最大的canvas高度(chrome: 16384px)** 
 
 ## cms
 
