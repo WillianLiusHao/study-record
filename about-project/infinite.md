@@ -4,8 +4,6 @@
 
 `Vue2 + Element-Ui`
 
----
-
 1. - [ ] 单向数据流？ (编辑组件的设计)
 
 2. - [ ] jssdk：事件上报 / 错误监控 / 行为回溯
@@ -58,8 +56,6 @@
 
 ## desktop-micro
 
----
-
 `Qiankun + Vue3 + Tsx + Element-Plus`
 
 1. why? 背景? 优缺点?
@@ -80,7 +76,6 @@
 
 ## oms、eams
 
----
 
 - [ ] changelog
 - [ ] 自动化测试(py)
@@ -106,7 +101,6 @@
 
 ## cms
 
----
 
 1. cli
 2. 丰富组件
