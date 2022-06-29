@@ -145,4 +145,5 @@ type NaiveResult = NaiveFlat<[['a'], ['b', 'c'], ['d']]>
 答案
 ```ts
 type NaiveFlat<T> = T extends (infer P)[] ? (P extends any[] ? NaiveFlat<P>: P) : never
+
 ```
