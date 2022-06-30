@@ -149,5 +149,135 @@ const isSymmetric = (root) => {
 }
 
 
-const level = isSymmetric(data.SymmetricECS)
-console.log(level)
+/** 链表 */
+
+// 1.反转链表(双指针法)
+const reverseLinkList = (head) => {
+  if(!head) return null
+  let cur = head, pre= null
+  while(cur) {
+    let next = cur.next // 先保存next
+    cur.next = pre  // 反转当前节点指向
+    // 双指针前移
+    pre = cur
+    cur = next
+  }
+  return pre
+}
+// 2.回文链表
+const isPalindrome = (head) => {
+  if(!head) return false
+  if(!head.next) return true
+  let slow = head, fast = head, pre=null;
+  while(fast && fast.next) {
+    fast = fast.next.next
+
+    let temp = slow.next
+    slow.next = pre
+    pre = slow
+    slow = temp
+  }
+  // 关键一步，用于区分奇数偶数链表长度
+  if(fast) slow = slow.next
+
+  let flag = true
+  while(pre && slow) {
+    if(pre.val === slow.val) {
+      pre = pre.next
+      slow = slow.next
+    } else {
+      flag = false
+      break
+    }
+  }
+  return flag
+}
+// 3.链中有环
+const hasCircle = (head) => {
+  if(!head) return null
+  let j = head, k = head;
+  let res = false
+  while(k && k.next) {
+    j = j.next
+    k = k.next.next
+    console.log(j.val, k.val)
+    if(j.val === k.val) {
+      res = true
+      break
+    }
+  }
+  return res
+}
+// 4.删除链表倒数第k个节点
+const removeNthFromEnd = (head, k) => {
+  if(!head || !head.next) return null
+  let slow = head, fast = head;
+  let slowPre = null
+  for(let i = 0; i < k; i++) {
+    fast = fast.next
+  }
+  while(fast) {
+    slowPre = slow
+    slow = slow.next
+    fast = fast.next
+  }
+  if(slowPre) {
+    slowPre.next = slow.next
+    return head
+  } else {
+    return head.next
+  }
+}
+// 5.合并递增链表
+const mergeLinkLists = (list1, list2) => {
+  if(!list1) return list2
+  if(!list2) return list1
+
+  if(list2.val >= list1.val) {
+    list1.next = mergeLinkLists(list1.next, list2)
+    return list1
+  } else {
+    list2.next = mergeLinkLists(list1, list2.next)
+    return list2
+  }
+}
+// 6.两数相加
+const addTwoNumbers = (l1, l2) => {
+  if(!l1) return l2
+  if(!l2) return l1
+  let carry = 0, res = {}, resHead = res
+  while(l1 || l2) {
+    let l1Val = l1.val
+    let l2Val = l2.val
+    let sum = l1Val + l2Val + carry
+
+    if(sum > 9) {
+      sum = sum - 10
+      carry = 1
+    } else {
+      carry = 0
+    }
+
+    res.val = sum
+    res.next = {}
+    console.log(res)
+    res = res.next
+    if(l1) l1 = l1.next
+    if(l2) l2 = l2.next
+  }
+  console.log(resHead)
+}
+
+// 7.相交链表
+const getIntersectionNode = function(headA, headB) {
+  if(!headA || !headB) return null
+  let p1 = headA,p2 = headB;
+  while (p1 !== p2){
+    p1 = p1 === null ? headB : p1.next;
+    p2 = p2 === null ? headA : p2.next;
+  }
+  return p1;
+}
+
+const res = addTwoNumbers(data.linkList1, data.linkList2)
+console.log(res);

@@ -1,4 +1,4 @@
-const commonECS = {
+const commonTree = {
   val: 1,
   left: {
     val: 2,
@@ -37,7 +37,7 @@ const commonECS = {
 }
 
 // 搜索二叉树
-const sousuoECS = {
+const sousuoTree = {
   val: 6,
   left: {
     val: 4,
@@ -67,7 +67,7 @@ const sousuoECS = {
   }
 }
 // 对称二叉树
-const SymmetricECS = {
+const symmetricTree = {
   val: 1,
   left: {
     val:2,
@@ -96,25 +96,94 @@ const SymmetricECS = {
   }
 }
 
-const simple = {
+/******************************* 链表 ***************************/
+const linkList1 = {
   val: 1,
-  left: {
-    val:5,
-    left: null,
-    right: null
-  },
-  right: {
-    val: 1,
-    left: null,
-    right: {
-      val: 6
+  next: {
+    val: 2,
+    next: {
+      val: 3,
+     
+    }
+  }
+}
+const linkList2 = {
+  val: 4,
+  next: {
+    val: 2,
+    next: {
+      val: 5,
     }
   }
 }
 
+
+// 回文链表
+const PalindromeLinkList = {
+  val: 1,
+  next: {
+    val: 2,
+    next: {
+      val: 3,
+      next: {
+        val: 4,
+        next: {
+          val: 4,
+          next: {
+            val: 3,
+            next: {
+              val: 2,
+              next: {
+                val: 1,
+              } 
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 有环链表
+const CircleLinkList = {
+  val: 1,
+  next: {
+    val: 2,
+    next: {
+      val: 3,
+      next: {
+        val: 4,
+        next: {
+          val: 2,
+          next: {
+            val: 3,
+            next: {
+              val: 4,
+              next: {
+                val: 2,
+                next: {
+                  val: 3,
+                  next: {
+                    val: 4,
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
 module.exports = {
-  commonECS,
-  sousuoECS,
-  SymmetricECS,
-  simple
+  commonTree,
+  sousuoTree,
+  symmetricTree,
+
+  linkList1,
+  linkList2,
+  PalindromeLinkList,
+  CircleLinkList
 }
