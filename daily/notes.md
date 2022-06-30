@@ -225,6 +225,10 @@
      - Cache-control（http1.1）：相对时间，秒
    - 协商缓存
 
+## 2022.06.27
+
+1. uni-app 生命周期的选择，navigateTo 不会销毁原来的组件(选用`onHide`)，navigateBack 会销毁(选用`onUnload/onMounted`)
+
 
 ## todo
 
