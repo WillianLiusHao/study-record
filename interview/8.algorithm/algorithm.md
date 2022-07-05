@@ -3,6 +3,7 @@
 
 [前端算法渣的救赎之路](https://juejin.cn/post/6844904175562653710)
 
+<<<<<<< Updated upstream:interview/8.algorithm/algorithm.md
 ### 链表  
 >  常见题型
 
@@ -21,62 +22,96 @@
   + 合并两个单调递增链表（`递归`）
   + 两数相加(`mid`)
   + **相交链表**（`思路`）
+=======
+### 链表
+  1. 双指针
+      + 链表的中间节点
+      + 链表的倒数第k个节点(`mid`)
+      + 删除第k个节点
+      + 反转链表
+
+  2. 特殊链表
+      + **回文链表**(`解法 & 奇偶长度处理`)
+      + 有环（`双指针`）
+      + 链表中环位置
+
+  3. 多条链表（拼接/求和）
+      + 合并两个单调递增链表（`递归`）
+      + 两数相加(`mid`)
+      + **相交链表**（`思路 -> 路径长度`）
+>>>>>>> Stashed changes:interview/8.algorithm/8.algorithm.md
 
 ### 二叉树  
-  - 遍历 
-    + 前中后序 
-    + 层次遍历
-      + 队列思想
-      + 记录每层数目
-      + 数组包裹每层数据，进入下一层
-      ```js
-        const levelOrder = (root)=> {
-          if(!root) return root
-          /**
-           * cur: 当前层数目
-          * next: 下一层数目
-          * path: 当前层数据
-          * queue: 存数队列
-          */
-          let cur = 1,next = 0, path = [],queue = [root], res=[];
-          while(queue.length > 0) {
-            const curNode = queue.shift()
-            path.push(curNode.val)
-            if(curNode.left) {
-              queue.push(curNode.left)
-              next++
+  1. 遍历 
+      + 前中后序 (`递归 & 迭代`)
+        ```js
+          // 1. 递归：非常容易，只需要改变存值和递归方法的位置即可
+          // 2. 迭代:
+            // 后续采用前序反转的形式
+            const houxu = (root) => {
+              if(!root) return root
+              let cur = root, stack = [], res = [];
+              while(cur || stack.length > 0) {
+                while(cur) {
+                  res.push(cur.val)// 【根】
+                  stack.push(cur)
+                  cur = cur.right // 【右】
+                }
+                cur = stack.pop()
+                cur = cur.left // 【左】
+              }
+              // 根右左 => reverse => 左右根(后续)
+              return res.reverse()
             }
-            if(curNode.right) {
-              queue.push(curNode.right)
-              next++
+        ```
+
+      + 层次遍历
+        + 队列思想
+        + 记录每层数目
+        + 数组包裹每层数据，进入下一层
+        ```js
+          const levelOrder = (root)=> {
+            if(!root) return root
+            /**
+              * level: 当前层索引
+              * queue: 存数队列
+            */
+            let level = 0,queue = [root], res=[];
+            while(queue.length > 0) {
+              res[level] = []
+              let count = queue.length
+
+              while(count --) {
+                const curNode = queue.shift()
+                res[level].push(curNode.val)
+                curNode.left && queue.push(curNode.left)
+                curNode.right && queue.push(curNode.right)
+              }
+              level ++
             }
-            cur--
-            if(cur ===0) {
-              // 进入下一层
-              cur = next
-              next = 0
-              // 每一层数据（path）用数组包起来
-              res.push(path)
-              path = []
-            }
+            return res
           }
-          return res
-        }
-      ```
-  
-  - 遍历变种
-    + 锯齿形层次遍历
+        ```
 
-  - 根据已知二叉树，求某值
-    + 二叉树的最大深度
-    + **二叉搜索树的第K小元素(no.230)**
-    + 二叉树最近公共祖先(剑指 no.68)
-    + 二叉树的直径
-    + 求根到叶节点数字之和(剑指Ⅱ no.049)
+  2. 遍历变种
+      + 锯齿形层次遍历
 
-  - 一些特殊的二叉树（判断和构建）
-    + 对称二叉树 （双指针）
-    + 反转二叉树 (递归)
+  3. 根据已知二叉树，求某值
+      + 二叉树的最大深度(dfs)
+      + **二叉搜索树的第K小元素(no.230)**
+      + 二叉树最近公共祖先(剑指 no.68)
+      + 二叉树的直径
+      + 求根到叶节点数字之和(剑指Ⅱ no.049)
+
+  4. 一些特殊的二叉树（判断和构建）
+      + 对称二叉树 (`双指针， 一前一后`)
+      + 搜索二叉树 (`中序 or 递归`)
+      + 反转二叉树 (`递归`)
+      + 合并二叉树
+
+### 字符串
+
+1. 电话号码的字母组合
 
 
 ### 栈和队列
@@ -94,7 +129,7 @@
 - [ ] 55.跳跃游戏
 
 ### 哈希表
-### 字符串
+
 ### 二分
   - 回溯
   - 排序
