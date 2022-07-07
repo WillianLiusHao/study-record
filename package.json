@@ -1,6 +1,6 @@
 {
   "name": "study-record",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "日常学习记录",
   "main": "index.js",
   "repository": "git@github.com:WillianLiusHao/study-record.git",
@@ -8,11 +8,13 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "commit": "git add -A && cz && git push"
+    "commit": "git add -A && cz && git push",
+    "release": "standard-version"
   },
-  "dependencies": {
+  "devDependencies": {
     "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "standard-version": "^9.5.0"
   },
   "config": {
     "commitizen": {
