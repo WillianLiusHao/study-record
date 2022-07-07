@@ -1,2 +1,3 @@
 # study-record
-Take notes of the review process
+
+Record William's daily study notes

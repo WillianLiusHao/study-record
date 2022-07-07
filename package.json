@@ -1,0 +1,16 @@
+{
+  "name": "study-record",
+  "version": "1.0.0",
+  "description": "日常学习记录",
+  "main": "index.js",
+  "repository": "git@github.com:WillianLiusHao/study-record.git",
+  "author": "刘志豪 <zhihaoliu@infinite.net.cn>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "commit": "git add -A && cz"
+  },
+  "dependencies": {
+    "commitizen": "^4.2.4"
+  }
+}

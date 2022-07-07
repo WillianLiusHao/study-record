@@ -416,7 +416,6 @@ const flatten = (root) => {
   console.log(root)
 };
 
-// LRU缓存
 // 9.LRU缓存
 var LRUCache = function(capacity) {
   this.len = capacity
@@ -453,3 +452,63 @@ LRUCache.prototype.put = function(key, value) {
     this.queue.push(key)
   }
 }
+
+// no.3 不重复最大子串
+const lengthOfLongestSubstring = (s) => {
+  if(s.length === 0 || s.length === 1) return s.length
+  const arr = s.split(''), len = arr.length;
+  let left = 0, right = 0, queue = [arr[right]], max = 0; // 滑动窗口的左右指针
+  while(right < len-1) {
+    right ++
+    const index = queue.findIndex(x => x === s[right])
+    if(index >= 0) {
+      left = index + 1
+      queue = queue.slice(left)
+    }
+    queue.push(arr[right])
+    max = Math.max(max, queue.length)
+  }
+  return max
+}
+
+
+// 示例 1：
+// 输入：nums = [-1,0,1,2,-1,-4]
+// 输出：[[-1,-1,2],[-1,0,1]]
+
+// 示例 2：
+// 输入：nums = []
+// 输出：[]
+
+// 示例 3：
+// 输入：nums = [0]
+// 输出：[]
+//
+
+// 三数之和
+var threeSum = function(nums) {
+  nums = nums.sort()
+  if(nums.length <= 2) return []
+  let res = [];
+  for(let i = 0; i < nums.length; i++) {
+    let first = nums[i]
+    if(first > 0) return
+    for(let j = i +1; j < nums.length; j++) {
+      let second = nums[j]
+      if(first + second > 0) return
+      const threeTarget = nums.slice(j+1)
+      const three = threeTarget.find(x => x === 0-first-second)
+      if(three !== undefined) {
+        res.push([first, second, three])
+      }
+    }
+  }
+  const obj = {}
+  res.forEach(item => {
+    obj[item] = item
+  })
+  return Object.values(obj)
+}
+
+var a = threeSum([0,0,0])
+console.log(a)
