@@ -26,5 +26,4 @@ function bfs(root) {
   return res
 }
 var a = bfs(tree)
-console.log(a)
 
