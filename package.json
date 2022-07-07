@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "commit": "git add -A && cz && git push",
+    "commit": "git add -A && cz && yarn release && git push",
     "release": "standard-version"
   },
   "devDependencies": {
