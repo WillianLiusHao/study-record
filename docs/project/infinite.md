@@ -100,7 +100,9 @@
    - [ ] 重点研究下 qiankun 框架的设计、功能、自己搭一个项目
 
 4. **组件封装，api 封装**
-
+   - [ ] table 组件
+   - [ ] 搜索条件组件
+   - 
 5. 按钮级别权限控制（角色/用户/路由/功能）
 
 
@@ -108,11 +110,11 @@
 
 ## oms、eams
 
+`Vue3 + Ts + Pinia + echarts + naiveui`
 
-- [ ] changelog
+- [x] 格式化提交，自动化更新版本号及生成changelog
 - [ ] 自动化测试(py)
-- [x] echarts
-- [ ] 移动端适配
+- [x] **echarts封装**
 - [x] pinia + 持久化存储(`pinia-plugin-persistedstate`)
 - [x] 首屏加载优化
    - ngnix 开启gzip压缩

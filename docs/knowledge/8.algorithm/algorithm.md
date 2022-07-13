@@ -3,7 +3,7 @@
 
 [前端算法渣的救赎之路](https://juejin.cn/post/6844904175562653710)
 
-### 链表  
+#### 链表  
 >  常见题型
 
 - 双指针
@@ -22,7 +22,7 @@
   + 两数相加(`mid`)
   + **相交链表**（`思路`）
 
-### 二叉树  
+#### 二叉树  
   1. 遍历 
       + 前中后序 (`递归 & 迭代`)
         ```js
@@ -90,13 +90,13 @@
       + 反转二叉树 (`递归`)
       + 合并二叉树
 
-### 字符串
+#### 字符串
 
 1. 电话号码的字母组合
 
 
-### 栈和队列
-### dp(Dynamic Programming：动态规划)
+#### 栈和队列
+#### dp(Dynamic Programming：动态规划)
   - [ ] [70.爬楼梯](https://leetcode.cn/problems/climbing-stairs/)
   - [ ] [198.打家劫舍](https://leetcode.cn/problems/house-robber/)
   - [ ] [221.最大正方形](https://leetcode.cn/problems/maximal-square/)
@@ -104,22 +104,22 @@
   - [ ] [62.不同路径](https://leetcode.cn/problems/unique-paths/)
   - [ ] [121.买卖股票系列](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
 
-### 贪心(greedy)
+#### 贪心(greedy)
 
 - [ ] 剑指 Offer 14剪绳子
 - [ ] 55.跳跃游戏
 
-### 哈希表
+#### 哈希表
 
-### 二分
+#### 二分
   - 回溯
   - 排序
     1. 冒泡
 
-### 并查集
+#### 并查集
   - 拓扑排序
   - 位运算
   - 双指针
     - [ ] 11.盛水最多的容器
 
-### 矩阵
+#### 矩阵
