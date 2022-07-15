@@ -135,6 +135,7 @@ const PalindromeLinkList = {
               val: 2,
               next: {
                 val: 1,
+                next: null
               } 
             }
           }

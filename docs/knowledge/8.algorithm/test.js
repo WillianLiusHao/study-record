@@ -416,6 +416,37 @@ const flatten = (root) => {
   console.log(root)
 };
 
+
+// 链表排序（涉及知识点：链表中点，合并链表）
+const sortList = (head) => {
+  // 1.终止条件, 仅剩一个了，即为正序的（排好序的）
+  if(!head || !head.next) return head
+  // 2.找中点，切断链表，递归向下
+  let {left, right} = findMidAndCut(head)
+  left = sortList(left)
+  right = sortList(right)
+  // 3.合并有序链表
+  return mergeLinkLists(left, right)
+}
+
+const findMidAndCut = (head) => {
+  /**找中点和切割 */
+  const preHead = {val: null, next: null}
+  preHead.next = head
+  let slow = preHead
+  let fast = preHead
+  while(fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+  }
+  const temp = slow.next
+  slow.next = null
+  return {left: head, right: temp}
+}
+
+const res = sortList(data.PalindromeLinkList)
+console.log(res);
+
 // 9.LRU缓存
 var LRUCache = function(capacity) {
   this.len = capacity
@@ -509,6 +540,4 @@ var threeSum = function(nums) {
   })
   return Object.values(obj)
 }
-
 var a = threeSum([0,0,0])
-console.log(a)
