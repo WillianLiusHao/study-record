@@ -144,11 +144,14 @@
   - 排序
     1. 冒泡
 
+
+
 #### 并查集
   - 拓扑排序
-  - 位运算
+  - 位运算 `n&1` `<<` `>>`
+    - [338.比特位计数](https://leetcode.cn/problems/counting-bits/)
   - 双指针
-    - [ ] 11.盛水最多的容器
+    - [11.盛水最多的容器](https://leetcode.cn/problems/container-with-most-water/)
 
 #### 矩阵
 #### 哈希表
