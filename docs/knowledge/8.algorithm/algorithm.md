@@ -109,6 +109,7 @@
   4. 一些特殊的二叉树（判断和构建）
       + 对称二叉树 (`双指针， 一前一后`)
       + 搜索二叉树 (`中序 or 递归`)
+      + 累加二叉树
       + 反转二叉树 (`递归`)
       + 合并二叉树
 
@@ -127,10 +128,10 @@
   - [ ] [322.零钱兑换](https://leetcode.cn/problems/coin-change/)
   - [ ] [62.不同路径](https://leetcode.cn/problems/unique-paths/)
   - [ ] [121.买卖股票系列](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
+  - [x] [22.括号生成](https://leetcode.cn/problems/generate-parentheses/)
 
 #### 字符串
-
-1. 电话号码的字母组合
+  - [x] [17.电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)
 
 
 #### 贪心(greedy)
@@ -140,18 +141,16 @@
 
 
 #### 二分
-  - 回溯
-  - 排序
-    1. 冒泡
+  - [x] [33.搜索旋转排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array/)
 
 
 
 #### 并查集
   - 拓扑排序
   - 位运算 `n&1` `<<` `>>`
-    - [338.比特位计数](https://leetcode.cn/problems/counting-bits/)
+    - [x] [338.比特位计数](https://leetcode.cn/problems/counting-bits/)
   - 双指针
-    - [11.盛水最多的容器](https://leetcode.cn/problems/container-with-most-water/)
+    - [x] [11.盛水最多的容器](https://leetcode.cn/problems/container-with-most-water/)
 
 #### 矩阵
 #### 哈希表
