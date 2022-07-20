@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/WillianLiusHao/study-record/compare/v1.4.0...v1.5.0) (2022-07-20)
+
+
+### Features
+
+* 修改commit命令 ([d117daa](https://github.com/WillianLiusHao/study-record/commit/d117daa49bbbeb67746c484475b6ee3aa097429f))
+
 ## [1.4.0](https://github.com/WillianLiusHao/study-record/compare/v1.3.0...v1.4.0) (2022-07-20)
 
 
