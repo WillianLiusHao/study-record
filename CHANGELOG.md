@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/WillianLiusHao/study-record/compare/v1.3.0...v1.4.0) (2022-07-20)
+
+
+### Features
+
+* 垃圾回收机制完善 ([e8b6c72](https://github.com/WillianLiusHao/study-record/commit/e8b6c72927029f9ac046a569356f475def034a15))
+
 ## [1.3.0](https://github.com/WillianLiusHao/study-record/compare/v1.2.1...v1.3.0) (2022-07-19)
 
 
