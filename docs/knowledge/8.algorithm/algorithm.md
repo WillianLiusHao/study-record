@@ -129,6 +129,7 @@
   - [ ] [62.不同路径](https://leetcode.cn/problems/unique-paths/)
   - [ ] [121.买卖股票系列](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
   - [x] [22.括号生成](https://leetcode.cn/problems/generate-parentheses/)
+  - [x] [96.不同的二叉搜索树？？？](https://leetcode.cn/problems/unique-binary-search-trees/submissions/)
 
 #### 字符串
   - [x] [17.电话号码的字母组合](https://leetcode.cn/problems/letter-combinations-of-a-phone-number/)
@@ -153,5 +154,6 @@
     - [x] [11.盛水最多的容器](https://leetcode.cn/problems/container-with-most-water/)
 
 #### 矩阵
+  - [x] [48.旋转图像](https://leetcode.cn/problems/rotate-image/)
 #### 哈希表
 
