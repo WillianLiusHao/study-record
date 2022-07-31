@@ -1,6 +1,6 @@
 {
   "name": "study-record",
-  "version": "1.2.1",
+  "version": "1.5.2",
   "description": "日常学习记录",
   "main": "index.js",
   "repository": "git@github.com:WillianLiusHao/study-record.git",
@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "commit": "git add -A && cz && yarn release && git push",
+    "commit": "git add -A && cz && yarn release && git push --follow-tags origin main",
     "release": "standard-version"
   },
   "devDependencies": {

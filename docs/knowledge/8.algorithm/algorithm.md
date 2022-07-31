@@ -148,6 +148,8 @@
   - [ ] [322.零钱兑换](https://leetcode.cn/problems/coin-change/)
   - [ ] [62.不同路径](https://leetcode.cn/problems/unique-paths/)
   - [ ] [121.买卖股票系列](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
+  - [x] [22.括号生成](https://leetcode.cn/problems/generate-parentheses/)
+  - [x] [96.不同的二叉搜索树？？？](https://leetcode.cn/problems/unique-binary-search-trees/submissions/)
 
 
 
@@ -176,9 +178,9 @@
 ### 并查集
   - 拓扑排序
   - 位运算 `n&1` `<<` `>>`
-    - [338.比特位计数](https://leetcode.cn/problems/counting-bits/)
+    - [x] [338.比特位计数](https://leetcode.cn/problems/counting-bits/)
   - 双指针
-    - [11.盛水最多的容器](https://leetcode.cn/problems/container-with-most-water/)
+    - [x] [11.盛水最多的容器](https://leetcode.cn/problems/container-with-most-water/)
 
 
 

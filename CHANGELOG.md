@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/WillianLiusHao/study-record/compare/v1.5.1...v1.5.2) (2022-07-29)
+
+### [1.5.1](https://github.com/WillianLiusHao/study-record/compare/v1.5.0...v1.5.1) (2022-07-20)
+
+## [1.5.0](https://github.com/WillianLiusHao/study-record/compare/v1.4.0...v1.5.0) (2022-07-20)
+
+
+### Features
+
+* 修改commit命令 ([d117daa](https://github.com/WillianLiusHao/study-record/commit/d117daa49bbbeb67746c484475b6ee3aa097429f))
+
+## [1.4.0](https://github.com/WillianLiusHao/study-record/compare/v1.3.0...v1.4.0) (2022-07-20)
+
+
+### Features
+
+* 垃圾回收机制完善 ([e8b6c72](https://github.com/WillianLiusHao/study-record/commit/e8b6c72927029f9ac046a569356f475def034a15))
+
+## [1.3.0](https://github.com/WillianLiusHao/study-record/compare/v1.2.1...v1.3.0) (2022-07-19)
+
+
+### Features
+
+* v8垃圾回收机制 ([3bf9ff5](https://github.com/WillianLiusHao/study-record/commit/3bf9ff53712ccd23f0de4ab02d0f0f4fb4f82435))
+
 ### [1.2.1](https://github.com/WillianLiusHao/study-record/compare/v1.2.0...v1.2.1) (2022-07-15)
 
 ## [1.2.0](https://github.com/WillianLiusHao/study-record/compare/v1.1.0...v1.2.0) (2022-07-14)
