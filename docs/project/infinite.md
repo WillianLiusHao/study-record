@@ -66,44 +66,22 @@
    - 业务上：为了整合公司已有的众多后台管理系统，删减遗弃的系统功能，也为了梳理业务线条，统一化系统管理
    - 技术上：为了后续新系统接入，兼容不同技术的系统，同时接触全新的 ts+vue3 技术体系
 
-2. qiankun 框架项目配置
-   - 主应用 main.js 中注册子应用
-   ```js
-      import { registerMicroApps, start } from 'qiankun';
-      registerMicroApps([
-      {
-         name: 'vue app',
-         entry: '//localhost:7100',
-         container: '#container-vue',
-         activeRule: '/micro-vue',
-         // 传递给子应用的参数
-         props: {
-            routerBase: '/micro-vue',
-         }
-      },
-      {
-         name: 'micro-clouds',
-         entry: '//localhost:7000',
-         activeRule: '/micro-clouds',
-         container: '#subapp2', // 子应用挂载的div
-         // 传递给子应用的参数
-         props: {
-            routerBase: '/micro-clouds',
-         }
-      }
-      ]);
-      // 启动微应用
-      start()
-   ```
 
-3. 难点？亮点？
+2. 难点？亮点？
    - [ ] 重点研究下 qiankun 框架的设计、功能、自己搭一个项目
 
-4. **组件封装，api 封装**
+3. **组件封装，api 封装**
    - [ ] table 组件
    - [ ] 搜索条件组件
    - 
-5. 按钮级别权限控制（角色/用户/路由/功能）
+4. 按钮级别权限控制（角色/用户/路由/功能）
+
+
+**Q&A**
+> Q1：Why not Iframe？
+   [Why Not Iframe？](https://www.yuque.com/kuitos/gky7yw/gesexv)
+
+> Q2：Why not micro-app？
 
 
 
