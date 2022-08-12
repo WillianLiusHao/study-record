@@ -1,36 +1,48 @@
 ## 算法
-> leetcode中hot 100 | 腾讯精选50题 | 精选Top面试题 | 剑指offer | 面试中遇到的一些算法题
+
+> leetcode 中 hot 100 | 腾讯精选 50 题 | 精选 Top 面试题 | 剑指 offer | 面试中遇到的一些算法题
 
 [前端算法渣的救赎之路](https://juejin.cn/post/6844904175562653710)
 
+### 排序
 
+- 冒泡 `O(n^2)`
+- 选择 `O(n^2)`
 
-### 链表  
+- 插入 `O(n^2)`
 
->   **常见题型**
+- 快排 `O(n^2)`
+- 归并 `O(n^2)`
+
+### 链表
+
+> **常见题型**
 
 - 双指针
-  + 链表的中间节点
-  + 链表的倒数第k个节点(`mid`)
-  + 删除第k个节点
-  + 反转链表
-  + **链表排序**
+
+  - 链表的中间节点
+  - 链表的倒数第 k 个节点(`mid`)
+  - 删除第 k 个节点
+  - 反转链表
+  - **链表排序**
 
 - 特殊链表
-  + **回文链表**（`解法 & 奇偶长度处理`)
-  + 有环（`双指针`）
-  + 链表中环位置
+
+  - **回文链表**（`解法 & 奇偶长度处理`)
+  - 有环
+  - **链表中环位置**
+    - step1: 快慢指针相遇（得出环的长度 => 假设慢指针走了k步，相遇时离入环点m => 环的长度为k）
+    - step2：慢指针回到起始点，然后同速率前进，**相遇时即为环入口**（慢指针走了`k-m`步，快指针也在环内走了`k-m`步，同时到达环入口）
 
 - 多条链表（拼接/求和）
-  + 合并两个单调递增链表（`递归`）
-  + 两数相加(`mid`)
-  + **相交链表**（`思路`）
+  - 合并两个单调递增链表（`递归`）
+  - 两数相加(`mid`)
+  - **相交链表**（`思路`）
 
-
-
->   **常用方法**
+> **常用方法**
 
 - **链表切割**(cut)
+
   - 使用快慢指针找到链表的中点，奇数个为`中点`,偶数个为`中心左边`节点
   - 找到中点`slow`后，保存右段并切割，`temp=slow.next`，`slow.next = null`
   - 返回`左段的头结点`和`右段(temp)`
@@ -38,74 +50,83 @@
 - **合并链表**(merge)
   - 递归思想
   ```js
-    if(list1.val < list2.val) {
-      list1.next = mergeLinkLists(list1.next, list2);
-      return list1
-    } else {
-      list2.next = mergeLinkLists(list2.next, list1);
-      return list2
-    }
+  if (list1.val < list2.val) {
+    list1.next = mergeLinkLists(list1.next, list2);
+    return list1;
+  } else {
+    list2.next = mergeLinkLists(list2.next, list1);
+    return list2;
+  }
   ```
 
 
 
-### 二叉树  
+### 二叉树
+
+**写树相关算法的终极奥义**：简单说就是，先搞清楚当前 root 节点该做什么，然后根据函数定义递归调用子节点，递归调用让孩子节点做相同的事情。
+
+**！终极奥义的难点**：如何把题目的要求细化成每个节点需要做的事情。
 
 ![](./assets/tree.jpg)
 
 #### 两个基本点
 
-+ DFS （**递归法**、**迭代法**）
-  
+- DFS （**递归法**、**迭代法**）
+
   ```js
-    // 1. 递归：非常容易，只需要改变存值和递归方法的位置即可
-    // 2. 迭代:
-      // 后续采用前序反转的形式
-      const houxu = (root) => {
-        if(!root) return root
-        let cur = root, stack = [], res = [];
-        while(cur || stack.length > 0) {
-          while(cur) {
-            res.push(cur.val)// 【根】
-            stack.push(cur)
-            cur = cur.right // 【右】
-          }
-          cur = stack.pop()
-          cur = cur.left // 【左】
-        }
-        // 根右左 => reverse => 左右根(后续)
-        return res.reverse()
+  // 1. 递归：非常容易，只需要改变存值和递归方法的位置即可
+  // 2. 迭代:
+  // 后续采用前序反转的形式
+  const houxu = (root) => {
+    if (!root) return root;
+    let cur = root,
+      stack = [],
+      res = [];
+    while (cur || stack.length > 0) {
+      while (cur) {
+        res.push(cur.val); // 【根】
+        stack.push(cur);
+        cur = cur.right; // 【右】
       }
+      cur = stack.pop();
+      cur = cur.left; // 【左】
+    }
+    // 根右左 => reverse => 左右根(后续)
+    return res.reverse();
+  };
   ```
-  
-+ BFS（**不分层**、**分层**、**锯齿形层次遍历**）
-  
+
+- BFS（**不分层**、**分层**、**锯齿形层次遍历**）
+
   ```js
   // 队列思想
   // 记录每层数目
-  // 数组包裹每层数据，进入下一层  
-  const levelOrder = (root)=> {
-      if(!root) return root
-      /**
-        * level: 当前层索引
-        * queue: 存数队列
-      */
-      let level = 0,queue = [root], res=[];
-      while(queue.length > 0) {
-          res[level] = []
-          let count = queue.length
+  // 数组包裹每层数据，进入下一层
+  const levelOrder = (root) => {
+    if (!root) return root;
+    /**
+     * level: 当前层索引
+     * queue: 存数队列
+     */
+    let level = 0,
+      queue = [root],
+      res = [];
+    while (queue.length > 0) {
+      res[level] = [];
+      let count = queue.length;
   
-          while(count --) {
-              const curNode = queue.shift()
-              res[level].push(curNode.val)
-              curNode.left && queue.push(curNode.left)
-              curNode.right && queue.push(curNode.right)
-          }
-          level ++
+      while (count--) {
+        const curNode = queue.shift();
+        res[level].push(curNode.val);
+        curNode.left && queue.push(curNode.left);
+        curNode.right && queue.push(curNode.right);
       }
-      return res
-  }
+      level++;
+    }
+    return res;
+  };
   ```
+
 
 #### 三种题型
 
@@ -113,27 +134,52 @@
 - 构建类
 - 修改类
 
-
-
 1. 根据已知二叉树，求某值
-  + 二叉树的最大深度(dfs)
-  + **二叉搜索树的第K小元素(no.230)**
-  + 二叉树最近公共祖先(剑指 no.68)
-  + 二叉树的直径
-  + 求根到叶节点数字之和(剑指Ⅱ no.049)
+
+   - 二叉树的最大深度(dfs)
+
+   - **二叉搜索树的第 K 小元素(no.230)**
+
+   - 二叉树最近公共祖先(剑指 no.68)
+
+   - 二叉树的直径
+
+   - 求根到叶节点数字之和(剑指 Ⅱ no.049)
+
+
 2. 一些特殊的二叉树（判断和构建）
-  + 对称二叉树 (`双指针， 一前一后`)
-  + 搜索二叉树 (`中序 or 递归`)
-  + 反转二叉树 (`递归`)
-  + 合并二叉树
+
+   - 对称二叉树 (`双指针， 一前一后`)
+
+   - 搜索二叉树 (`中序 or 递归`)
+
+   - 反转二叉树 (`递归`)
+
+   - 合并二叉树
 
 
 
 
 ### 双指针
-  [评论区高级双指针解法](https://leetcode.cn/problems/move-zeroes/comments/)
-  - [x] [283.移动零](https://leetcode.cn/problems/move-zeroes/)
-  - [x] [75.颜色分类](https://leetcode.cn/problems/sort-colors/)
+
+- **快慢指针**
+  - 是否有环
+  - 环的位置
+  - 链表中点节点
+  - 链表倒数第k个节点
+
+- **左右指针**
+  - 二分查找
+  - 两数之和(升序数组)
+  - 反转数组
+  - 滑动窗口
+
+[评论区高级双指针解法](https://leetcode.cn/problems/move-zeroes/comments/)
+
+- [x] [283.移动零](https://leetcode.cn/problems/move-zeroes/)
+- [x] [75.颜色分类](https://leetcode.cn/problems/sort-colors/)
+
+
 
 
 
@@ -142,14 +188,15 @@
 
 
 ### dp(Dynamic Programming：动态规划)
-  - [ ] [70.爬楼梯](https://leetcode.cn/problems/climbing-stairs/)
-  - [ ] [198.打家劫舍](https://leetcode.cn/problems/house-robber/)
-  - [ ] [221.最大正方形](https://leetcode.cn/problems/maximal-square/)
-  - [ ] [322.零钱兑换](https://leetcode.cn/problems/coin-change/)
-  - [ ] [62.不同路径](https://leetcode.cn/problems/unique-paths/)
-  - [ ] [121.买卖股票系列](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
-  - [x] [22.括号生成](https://leetcode.cn/problems/generate-parentheses/)
-  - [x] [96.不同的二叉搜索树？？？](https://leetcode.cn/problems/unique-binary-search-trees/submissions/)
+
+- [ ] [70.爬楼梯](https://leetcode.cn/problems/climbing-stairs/)
+- [ ] [198.打家劫舍](https://leetcode.cn/problems/house-robber/)
+- [ ] [221.最大正方形](https://leetcode.cn/problems/maximal-square/)
+- [ ] [322.零钱兑换](https://leetcode.cn/problems/coin-change/)
+- [ ] [62.不同路径](https://leetcode.cn/problems/unique-paths/)
+- [ ] [121.买卖股票系列](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
+- [x] [22.括号生成](https://leetcode.cn/problems/generate-parentheses/)
+- [x] [96.不同的二叉搜索树？？？](https://leetcode.cn/problems/unique-binary-search-trees/submissions/)
 
 
 
@@ -159,34 +206,61 @@
 
 
 
-
 ### 贪心(greedy)
 
-- [ ] 剑指 Offer 14剪绳子
+- [ ] 剑指 Offer 14 剪绳子
 - [ ] 55.跳跃游戏
 
 
 
+### 回溯(backtrack)
 
-### 二分
-  - 回溯
-  - 排序
-    1. 冒泡
+> 回溯按照如下三个步骤思考问题
+
+1. 「路径」：记录做出的选择。
+2. 「选择列表」：通常而言，用数组存储可以选择的操作。
+3. 「结束条件」：一般而言，就是递归的结束点，也就是搜索的结束点。
+
+```js
+const res = []
+function backtrack(路径, 选择列表) {
+  if('满足结束条件') {
+    res.push(路径)
+    return
+  }
+  for(选择 in 选择列表) {
+    做选择
+    backtrack(路径, 选择列表)
+    撤销选择
+  }
+}
+```
+
+
+
+### 二分（binarySearch）
+
+> **最常用的二分查找场景：寻找一个数、寻找左侧边界、寻找右侧边界**
+
+
+  ```js
+  const binarySearch = (arr) => {
+    let mid = arr.length >> 1
+    if(arr[mid] === target) {
+      return mid
+    } else if(arr[mid] > target) {
+      return binarySearch(arr.slice(0, mid))
+    } else {
+      return binarySearch(arr.slice(mid, arr.length))
+    }
+  }
+  ```
 
 
 
 ### 并查集
-  - 拓扑排序
-  - 位运算 `n&1` `<<` `>>`
-    - [x] [338.比特位计数](https://leetcode.cn/problems/counting-bits/)
-  - 双指针
-    - [x] [11.盛水最多的容器](https://leetcode.cn/problems/container-with-most-water/)
 
-
-
-### 矩阵
-
-
-
-### 哈希表
-
+### 位运算
+  - `n&1`：判断奇偶
+  - `<<` `>>`：左移右移
+  - `n&n-1`：消除最右边的1

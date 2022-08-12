@@ -258,6 +258,33 @@
 	- [x] [5.最大不重复子串]()
 	- [x] [209.长度最小的子数组](https://leetcode.cn/problems/minimum-size-subarray-sum/)
 
+- [LRU 算法详解](https://github.com/labuladong/fucking-algorithm/blob/master/%E9%AB%98%E9%A2%91%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97/LRU%E7%AE%97%E6%B3%95.md)
+
+- 二分法
+
+- **深刻理解二叉树的遍历算法**
+
+```js
+/* 二叉树遍历框架 */
+void traverse(TreeNode root) {
+	// 前序遍历
+	traverse(root.left)
+	// 中序遍历
+	traverse(root.right)
+	// 后序遍历
+}
+```
+
+> 诸多常见算法其实都是树的遍历问题
+
+- 前序遍历：先主逻辑、再递归
+	- `快排`：排序后（`主逻辑`）再进行(`递归`)对左右区间排序
+
+- 后续遍历：先递归、再执行主逻辑
+	- `归并`：不断分区间（`递归`）再合并区间排序（`主逻辑`）
+	- `分治`
+	- `回溯`
+
 **项目**
 
 - 监控sdk

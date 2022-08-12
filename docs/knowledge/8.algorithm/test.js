@@ -236,7 +236,7 @@ const isSymmetric = (root) => {
   }
   return a;
 };
-// 判断搜索二叉树
+// 判断搜索二叉树 (结合翻转二叉树知识点)
 const isValidBST = (root) => {
   if (!root) return false;
   const zhongxu = (root, res) => {
@@ -254,7 +254,6 @@ const isValidBST = (root) => {
   return flag;
 };
 
-
 /********************** 链表 start **********************/
 // 1.反转链表(双指针法)
 const reverseLinkList = (head) => {
@@ -270,6 +269,7 @@ const reverseLinkList = (head) => {
   }
   return pre;
 };
+
 // 2.回文链表
 const isPalindrome = (head) => {
   if (!head) return false;
@@ -445,9 +445,8 @@ const findMidAndCut = (head) => {
 }
 
 const res = sortList(data.PalindromeLinkList)
-console.log(res);
 
-// 9.LRU缓存
+// 9.LRU缓存(数组队列实现)
 var LRUCache = function(capacity) {
   this.len = capacity
   this.queue = []
@@ -481,6 +480,33 @@ LRUCache.prototype.put = function(key, value) {
     // 新增数据
     this[key] = {value, key}
     this.queue.push(key)
+  }
+}
+
+// 9.LRU缓存(map实现)
+var LRUCache = function(capacity) {
+  this.cache = new Map()
+  this.maxLen = maxLen
+}
+
+LRUCache.prototype.put = function(key, value) {
+  if(this.cache.has(key)) {
+    // 存在则先删除（后面再重新添加，达到更新的效果）
+    this.cache.delete(key)
+  } else if(this.cache.size === this.maxLen) {
+    this.cache.delete(this.cache.keys().next().value)
+  }
+  this.cache.set(key, val)
+}
+
+LRUCache.prototype.get = function(key) {
+  if(this.cache.has(key)) {
+    // 存在则先删除（后面再重新添加，达到更新的效果）
+    const val = this.cache.get(key)
+    this.cache.delete(key)
+    this.cache.set(key, val)
+  } else {
+    return -1
   }
 }
 
