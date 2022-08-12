@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/WillianLiusHao/study-record/compare/v1.6.3...v1.7.0) (2022-08-12)
+
+
+### Features
+
+* 算法 ([69fe78c](https://github.com/WillianLiusHao/study-record/commit/69fe78cb7ebf8871656bc64e7701d73fbe9f481a))
+
 ### [1.6.3](https://github.com/WillianLiusHao/study-record/compare/v1.6.2...v1.6.3) (2022-08-10)
 
 ### [1.6.2](https://github.com/WillianLiusHao/study-record/compare/v1.6.1...v1.6.2) (2022-08-09)
