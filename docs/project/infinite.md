@@ -123,15 +123,13 @@
 - [ ] svg-icon 组件
    - use 标签
 
-## eams 小程序 uni-app
-
-- ucharts
-
-
+## 中知数通项目
+   - eams
+   - uni-app
+   - 小蓝书
+   - 官网
 
 ## cms
-
-
 1. cli
 2. 丰富组件
-3. 路由自动生成
+3. 路由自动生成（vite插件）
