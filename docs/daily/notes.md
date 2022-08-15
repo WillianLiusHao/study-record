@@ -290,30 +290,10 @@ void traverse(TreeNode root) {
 - 监控sdk
 
 
-## todo
+### 2022.08.15 - 2022.08.21
 
-> js	
-1. 0.1 + 0.2 === 0.3
+**知识点**
 
-> es6	
-1. Promise 的使用及相关方法 / async await 的使用
+**算法**
 
-> http
-1. TCP三次握手
-
-> node	
-1. nodejs 核心 API
-	- stream
-	- buffer
-	- fs
-	- path
-
-> webpack	
-1. 有哪些常用loader
-2. Code Splitting
-
-> 尝鲜
-- Graphql
-- DevOps
-- CICD
-- [x] Pinia
+**项目**
