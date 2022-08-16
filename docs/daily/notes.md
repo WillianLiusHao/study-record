@@ -296,4 +296,23 @@ void traverse(TreeNode root) {
 
 **算法**
 
+1. 前缀和
+	- [x] [560.和为k的子数组](https://leetcode.cn/problems/subarray-sum-equals-k/)
+2. 滑动窗口的框架及注意事项
+```js
+// 框架
+function slideWindow() {
+	// 1. 初始化左右指针，左闭右开，指向0
+	// 2. 扩大窗口，直至满足条件 
+	right ++
+	// 3. 缩小窗口, 找到最小窗口，比较并更新
+	while(满足条件) {
+		left++
+		if(right - left < min) {
+			min = right - left
+		}
+	}
+	// reutrn：当right = arr.length-1，且left缩到最小的时候，返回最小窗口
+}
+```
 **项目**
