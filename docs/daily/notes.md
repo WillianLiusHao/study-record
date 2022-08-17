@@ -294,6 +294,12 @@ void traverse(TreeNode root) {
 
 **知识点**
 
+1. 原型链、new、继承
+
+2. [ ] eventloop、promise、nextTick
+
+3. [ ] http缓存，js内存存放，垃圾回收机制
+
 **算法**
 
 1. 前缀和

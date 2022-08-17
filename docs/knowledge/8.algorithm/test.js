@@ -494,6 +494,7 @@ LRUCache.prototype.put = function(key, value) {
     // 存在则先删除（后面再重新添加，达到更新的效果）
     this.cache.delete(key)
   } else if(this.cache.size === this.maxLen) {
+    // *keys().next().value 获取队头的key值，并删除 => 这里类似queue.shift()思想
     this.cache.delete(this.cache.keys().next().value)
   }
   this.cache.set(key, val)
