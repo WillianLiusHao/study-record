@@ -321,4 +321,34 @@ function slideWindow() {
 	// reutrn：当right = arr.length-1，且left缩到最小的时候，返回最小窗口
 }
 ```
+
+
+### 2022.08.22 - 2022.08.26
+
+**知识点**
+
+- Vue3 响应式原理
+
+	- 核心API：`Effect`
+	
+		简单来说我们所有模版（组件）最终都会被 effect 包裹 ，当数据发生变化时 Effect 会重新执行，所以 vuejs 中的响应式原理可以说是基于 effect 来实现的 。
+
+		当然这里你仅仅需要了解，最终组件是会编译成为一个个 effect ，当响应式数据改变时会触发 effect 函数重新执行从而更新渲染页面即可。
+
+**算法**
+
+**项目**
+
+- [vite-plugin-generate-routes](https://github.com/WillianLiusHao/vite-plugin-generate-routes)
+
+- [mini-webpack](https://github.com/WillianLiusHao/mini-webpack)
+
+
+
+### 2022.08.29 - 2022.09.02
+
+**知识点**
+
+**算法**
+
 **项目**
