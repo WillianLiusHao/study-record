@@ -349,6 +349,33 @@ function slideWindow() {
 
 **知识点**
 
+1. webpack中配置loader的三种方式
+	- 绝对路径：直接用path.resolve写loader的绝对路径
+	- resolveLoader.alias：定义单个loader的路径
+	- resolveLoader.modules：定义所有loader查找目录（默认是node_modules）
+
+2. `pitch loader` 的熔断效果
+
 **算法**
 
 **项目**
+
+1. vite 源码学习
+
+​	**依赖预构建**
+
+- why？
+  - 兼容：开发阶段中，vite会把所有的模块视为 ES 模块，所以需要先将CommonJS 和 UMD 发布的包转成 ESM
+  - 性能： Vite 将有许多内部模块的 ESM 依赖关系转换为单个模块，以提高后续页面加载性能。
+- when？
+  - 首次会进行依赖预构建，构建的依赖会存到 `node_modules/.vite` 中
+  - 当依赖发生变化时，如
+    - package.json 的 dependencies 列表
+    - 各类包管理器的 lockfile，package-lock.json / yarn.lock
+    - vite.config.js 配置过的
+- 缓存
+	- 构建后的依赖以 HTTP 头 `max-age=31536000,immutable` 强缓存
+
+**week todo**
+
+1. mini-webpack

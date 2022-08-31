@@ -83,6 +83,8 @@
 
 > Q2：Why not micro-app？
 
+> Q3：讲一下为什么用微前端，qiankun的特性是什么，有没有看过single-spa的内部实现方式
+
 
 
 
