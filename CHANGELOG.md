@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/WillianLiusHao/study-record/compare/v1.7.7...v1.8.0) (2022-09-02)
+
+
+### Features
+
+* 0902 ([e59b730](https://github.com/WillianLiusHao/study-record/commit/e59b7304be8f58fd568a86965266dca22ae765c3))
+
 ### [1.7.7](https://github.com/WillianLiusHao/study-record/compare/v1.7.6...v1.7.7) (2022-08-31)
 
 ### [1.7.6](https://github.com/WillianLiusHao/study-record/compare/v1.7.5...v1.7.6) (2022-08-29)
