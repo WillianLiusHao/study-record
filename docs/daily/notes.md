@@ -376,6 +376,10 @@ function slideWindow() {
 - 缓存
 	- 构建后的依赖以 HTTP 头 `max-age=31536000,immutable` 强缓存
 
+- [ ] vite hmr 原理
+- [ ] vite 启动原理
+- [ ] vite 预构建原理？？？(好复杂)
+
 **week todo**
 
 1. mini-webpack
