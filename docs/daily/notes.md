@@ -362,7 +362,13 @@ function slideWindow() {
 
 1. vite 源码学习
 
-​	**依赖预构建**
+- [x] vite hmr 原理
+- [x] vite 启动原理
+- [x] vite 预构建原理？？？(好复杂)
+
+
+
+依赖预构建
 
 - why？
   - 兼容：开发阶段中，vite会把所有的模块视为 ES 模块，所以需要先将CommonJS 和 UMD 发布的包转成 ESM
@@ -376,10 +382,14 @@ function slideWindow() {
 - 缓存
 	- 构建后的依赖以 HTTP 头 `max-age=31536000,immutable` 强缓存
 
-- [ ] vite hmr 原理
-- [ ] vite 启动原理
-- [ ] vite 预构建原理？？？(好复杂)
 
-**week todo**
 
-1. mini-webpack
+
+### 2022.09.05 - 2022.09.09
+
+**知识点**
+
+**算法**
+
+**项目**
+

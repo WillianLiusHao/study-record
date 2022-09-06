@@ -3,8 +3,6 @@
 
   - 格式化提交
 
-## 手写 vite
-
 
 ## mini-lightning
 
