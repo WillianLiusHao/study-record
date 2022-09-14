@@ -30,9 +30,6 @@
   - LCP(largest-contentful-paint)，从页面加载开始到最大文本块或图像元素在屏幕上完成渲染的时间
   - CLS(layout-shift)，从页面加载开始和其生命周期状态变为隐藏期间发生的所有意外布局偏移的累积分数
 
-**FP**
-
-  可理解为白屏时间
 
 参考 [mitojs](https://github.com/mitojs/mitojs)
 参考 [monitor-demo](https://github.com/woai3c/monitor-demo)
