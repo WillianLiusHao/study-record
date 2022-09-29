@@ -45,8 +45,10 @@
 6. - [ ] 性能优化
    - **`性能优化常见手段`**
    - **`首屏优化： 关键渲染路径`**
+      - 懒加载，预加载，代码压缩gzip
+      - 性能优化指标（FP,FCP,LCP）
 
-7. - [x] websocket
+7. - [x] websocket(**解决页面编辑后被他人修改了的问题**)
    - 创建在 TCP 上的，全双工通信
    - http 1.1 / code: 101 / connection: upgrade / upgrade: websocket
    - new WebSocket(url)

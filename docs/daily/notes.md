@@ -385,7 +385,7 @@ function slideWindow() {
 
 
 
-### 2022.09.05 - 2022.09.09
+### 2022.09.26 - 2022.09.30
 
 **知识点**
 
@@ -393,3 +393,8 @@ function slideWindow() {
 
 **项目**
 
+- monitor-demo
+	- FP / FCP / LCP / CLS 的含义及获取方法
+
+
+- 发布一个虚拟列表组件
