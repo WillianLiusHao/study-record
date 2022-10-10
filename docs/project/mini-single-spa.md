@@ -80,12 +80,60 @@
 - 对不同类型的 app 分别执行不同的方法
   - **toLoadApp -> bootstrapApp**
     - 触发开始前生命周期钩子：triggerAppHook(app, 'beforeBootstrap', AppStatus.BOOTSTRAPPED)
-    - 解析html，加载 js css：parseHTMLandLoadSources（`处理 app 数据的 pageBody,scripts,styles 数据`）
+    - 解析html
+      - 根据子应用的 入口url，通过发送请求的方式，获取到 html 内容
+      - 根据 html 解析出 入口文件的 css 和 js => parseHTMLandLoadSources（`处理 app 数据的 pageBody,scripts,styles 数据`）
     - 处理沙箱 sanbox
     - 渲染html: container.innerHTML = app.pageBody
-    - 执行 style 和 script 标签
-    - 完善 app 配置，添加 app 的 mount 和 unmount 函数（？？？）
+    - 执行 style 和 script 标签(`执行后，子应用上的 mount/unmouted 等函数会挂载到全局的 window 上`)
+    - 完善 app 配置( 获取当前window下__SINGLE_SPA__对象里的 mount 和 unmount 函数 ，添加到 app 上)
     - 触发结束生命周期钩子：triggerAppHook(app, 'bootstrapped', AppStatus.BOOTSTRAPPED)
   - **toUnMountApp -> unMountApp**
   - **toMountApp -> mountApp**
 
+### 重难点
+
+1. 子应用是如何挂载的？
+
+    首先，所有的子应用在 mian 中会对 render 函数进行一层封装，用于区分当前是否是在微前端环境中
+    
+    - 在基座执行 start 的时候，会在 window 上挂载一个全局变量`__IS__SINGLESPA__`， 供子应用区分当前环境
+    - 当然，子应用也可以单独启动，直接在当前 app 容器中挂载 
+
+2. 如何在vite项目使用？
+  
+    vite 应用是采用 esm，统一是发请求的模式，故应尽可能将 js/css 等资源在 main 中编写
+
+    我们可以通过编写自定义的 import 方法，将资源统一通过 import 方法引入，防止部分js的import语法 在 非 module 环境下的报错
+
+
+    qiankun 官方现在还暂未支持 所以要引入第三方库 `vite-plugin-qiankun`,该库有2个常用内容
+
+    > renderWithQiankun 
+
+3. 资源如何处理的？
+
+- 传统的 cli 模式下([import-html-entry](https://github.com/kuitos/import-html-entry))
+
+  子应用会提供入口(即index.html)，通过解析 html 的结构，可以分别解析出 js/css/html(container)
+
+  资源可能是外部的(有url的)，也可能是内嵌的
+    - 外部的：通过 promise 发送请求，返回相应内容，并将内容转化成 内嵌的
+    - 内嵌的：直接执行内部内容
+
+- vite 模式下
+
+  只对 index.html 中的内嵌资源做处理，生成对应资源标签后插入到 页面中
+
+  外部资源的话，vite 会自动发送请求获取
+
+4. 沙箱如何实现的？
+
+- js 沙箱
+  - 子项目加载前：对 window 做快照
+  - 子项目卸载后：恢复这个快照
+
+  - SanpshotSandbox
+
+- css 沙箱
+  - 
