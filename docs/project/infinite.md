@@ -35,7 +35,14 @@
       - 后端数据库存对应用户的路由权限，然后在全局的路由守卫中对页面进行过滤
    - 功能权限(`自定义指令`)
 
-4. - [x] husky？
+4. - [x] husky（配置git 提供的提交时生命周期，限制提交的`分支`/`文件夹`）
+   - `husky` - `hooks`
+      - post-checkout
+      - pre-commit
+      - commit-msg
+   - child_process - `spawn`：命令行执行库
+   - chalk：输出带颜色的log
+   - process：进程控制
 
 5. - [x] 脚本
    - 打包模板 yarn template
@@ -95,6 +102,11 @@
 `Vue3 + Ts + Pinia + echarts + naiveui`
 
 - [x] 格式化提交，自动化更新版本号及生成changelog
+   - Eslint(.eslintrc.js)
+   - Prettier(.prettierrc/package.json 中配置prettier字段)
+   - Husky(pre-commit/commit-msg/pre-push)
+   - Commitlint
+   - Lint-staged
 - [ ] 自动化测试(py)
 - [x] **echarts封装**
 - [x] pinia + 持久化存储(`pinia-plugin-persistedstate`)
