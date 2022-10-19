@@ -1,6 +1,6 @@
 ## 监控js-sdk
 
-### 数据采集
+### 一、功能模块
 
   - 错误监控
     - 资源错误
@@ -9,23 +9,36 @@
   - 性能监控
     - 页面加载速度
     - 首屏渲染时间
+    - 接口请求耗时
   - 行为监控
     - PV,UV
     - 页面停留时长
     - 事件上报（自定义统计事件）
+    - 用户点击
     - 页面跳转
     - 行为回溯（桑基图，录屏）
 
-### 数据上报
+#### 难点，亮点
 
+> 数据上报的时机和方法（数据未上报/丢失问题）
 
+- 上报方法
+  1. sendBeacon（首选，异步、保证数据的可靠，不影响页面性能）
+  2. XMLHttpRequest
 
+- 上报时机
+  1. 采用 requestIdleCallback/setTimeout 延时上报
+  2. 在 beforeunload 回调函数里上报
+  3. 缓存上报数据，达到一定数量后再上报
 
-#### 错误监控
+> 自定义统计事件的上报
 
-#### 性能监控
+### 二、数据上报
 
-##### 性能指标
+#### 1. 错误监控
+
+#### 2. 性能监控
+##### 2.1 性能指标
 
 - FP(first-paint)，从页面加载开始到第一个像素绘制到屏幕上的时间
 - FCP(first-contentful-paint)，从页面加载开始到页面内容的任何部分在屏幕上完成渲染的时间(**<=1.8s**)
@@ -56,7 +69,7 @@
   }
   ```
 
-##### 首屏渲染时间
+##### 2.2 首屏渲染时间
 
 计算过程：
 
@@ -74,9 +87,9 @@ const observer = new MutationObserver(mutations => {
 })
 ```
 
+##### 2.3 接口监控
 
+- 改写浏览器内置的 XMLHttpRequest 对象的 `open` 和 `send` 方法
+- 改写 `fetch`
 
-
-
-参考 [mitojs](https://github.com/mitojs/mitojs)
-参考 [monitor-demo](https://github.com/woai3c/monitor-demo)
+#### 3. 行为监控
