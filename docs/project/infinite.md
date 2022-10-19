@@ -164,7 +164,7 @@ A：传统的`mutirepo`是多项目多仓库，而`monorepo`是多项目单仓�
 
 
 
-## oms、eams
+## eams、uni-app、小蓝书、官网
 
 `Vue3 + Ts + Pinia + echarts + naiveui`
 
@@ -172,8 +172,10 @@ A：传统的`mutirepo`是多项目多仓库，而`monorepo`是多项目单仓�
    - Eslint(.eslintrc.js)
    - Prettier(.prettierrc/package.json 中配置prettier字段)
    - Husky(pre-commit/commit-msg/pre-push)
-   - Commitlint
    - Lint-staged
+   - Commitlint => git cz
+   - cz-conventional-changelog
+   - standard-version
 - [x] **echarts封装**
 - [x] pinia + 持久化存储(`pinia-plugin-persistedstate`)
 - [x] 首屏加载优化
@@ -205,11 +207,6 @@ A：传统的`mutirepo`是多项目多仓库，而`monorepo`是多项目单仓�
 - [ ] svg-icon 组件
    - use 标签
 
-## 中知数通项目
-   - eams
-   - uni-app
-   - 小蓝书
-   - 官网
 
 ## cms
 1. cli
