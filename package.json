@@ -18,7 +18,11 @@
     "standard-version": "^9.5.0"
   },
   "husky": {
-    "commit-msg": "node bash/verify-commit.js"
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "commit-msg": "node script/verify-commit.js",
+      "pre-push": "npm test"
+    }
   },
   "config": {
     "commitizen": {
