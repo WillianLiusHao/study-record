@@ -169,7 +169,7 @@ A：传统的`mutirepo`是多项目多仓库，而`monorepo`是多项目单仓�
 `Vue3 + Ts + Pinia + echarts + naiveui`
 
 - [x] 制定代码和git规范(`standard` 规范)、自动化代码提交
-   - 代码规范
+   - 代码规范(eslint检测 + vscode 插件自动格式化)
       - js: `Eslint`
       - html: `plugin:vue/vue3-essential`/`plugin:vue/recommended`、`@vue/standard`
       - ts: `@vue/typescript/recommended` 

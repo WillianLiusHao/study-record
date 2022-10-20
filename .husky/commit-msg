@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+FORCE_COLOR=1 node bash/verify-commit.js $1
+
+#! $1 可以读取 .git目录下的 COMMIT_EDITMSG 文件，获取本次提交的信息

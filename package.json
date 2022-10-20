@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "prepare": "husky install",
     "commit": "git add -A && cz && yarn release && git push --follow-tags origin main",
     "release": "standard-version"
   },
@@ -16,13 +17,6 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.1",
     "standard-version": "^9.5.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "commit-msg": "node bash/verify-commit.js",
-      "pre-push": "npm test"
-    }
   },
   "config": {
     "commitizen": {
