@@ -20,7 +20,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint",
-      "commit-msg": "node script/verify-commit.js",
+      "commit-msg": "node bash/verify-commit.js",
       "pre-push": "npm test"
     }
   },
