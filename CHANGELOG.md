@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/WillianLiusHao/study-record/compare/v1.10.4...v1.11.0) (2022-10-20)
+
+
+### Features
+
+* add husky ([1ffbd23](https://github.com/WillianLiusHao/study-record/commit/1ffbd234b3f91729236da76c2eadbd2edb2e078e))
+
 ### [1.10.4](https://github.com/WillianLiusHao/study-record/compare/v1.10.3...v1.10.4) (2022-10-19)
 
 ### [1.10.3](https://github.com/WillianLiusHao/study-record/compare/v1.10.2...v1.10.3) (2022-10-19)
