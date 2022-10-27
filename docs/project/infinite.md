@@ -174,7 +174,7 @@ A：传统的`mutirepo`是多项目多仓库，而`monorepo`是多项目单仓�
 
 ## eams、uni-app、小蓝书、官网
 
-`Vue3 + Ts + Pinia + echarts + naiveui`
+`Vue3 + Ts + Pinia + echarts + naiveui + tailwindcss`
 
 - [x] 制定代码和git规范(`standard` 规范)、自动化版本管理
    - git cz => Commitlint规范化提交格式 / cz-conventional-changelog(changelog生成)
@@ -186,10 +186,8 @@ A：传统的`mutirepo`是多项目多仓库，而`monorepo`是多项目单仓�
       - ts: `@vue/typescript/recommended` 
       - scss: stylelint `stylelint-config-standard-scss`
    - git规范：格式化提交，自动化更新版本号及生成changelog
-      - Husky(pre-commit/commit-msg/pre-push)
-      - Lint-staged
-      - Commitlint => git cz
-      - cz-conventional-changelog：
+      - Husky(pre-commit/commit-msg/pre-push) + Lint-staged
+      - Commitlint(git cz) + cz-conventional-changelog
       - standard-version：更新版本
 - [x] **echarts封装**
 - [x] pinia + 持久化存储(`pinia-plugin-persistedstate`)
