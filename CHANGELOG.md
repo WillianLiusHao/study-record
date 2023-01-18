@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/WillianLiusHao/study-record/compare/v1.12.5...v1.13.0) (2023-01-18)
+
+
+### Features
+
+* 新年新气象 ([729e72a](https://github.com/WillianLiusHao/study-record/commit/729e72a6099ef3a431b31bc746d50217884d3d82))
+
 ### [1.12.5](https://github.com/WillianLiusHao/study-record/compare/v1.12.4...v1.12.5) (2023-01-06)
 
 ### [1.12.4](https://github.com/WillianLiusHao/study-record/compare/v1.12.3...v1.12.4) (2022-11-04)
