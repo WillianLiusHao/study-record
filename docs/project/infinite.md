@@ -44,7 +44,7 @@
    - chalk：输出带颜色的log
    - process：进程控制
 
-5. - [x] 脚本
+5. - [x] 脚本（**建议单独写个小项目作为开发cli工具,涉及vue 的工作原理**）
    - 打包模板 yarn template
    - 启动模板 yarn serve
    - 打包项目 yarn build

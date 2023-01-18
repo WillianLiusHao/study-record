@@ -127,3 +127,5 @@ pnpm add -D "@typescript-eslint/eslint-plugin"
 pnpm add -D "@typescript-eslint/parser"
 ```
 
+##### vue-shim.d.ts文件
+
