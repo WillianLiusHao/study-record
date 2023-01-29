@@ -1,24 +1,32 @@
-## vite 项目工程
+## vite 项目工程 (Vite4 + Vue3 + Ts)
 
-#### 项目创建、初始化
+### 工程配置
 
-- 创建
+#### Vite 项目创建、初始化
+
+##### 创建项目、初始化
 
 ```#js
 pnpm create vite@latest my-vue-app -- --template vue
-```
-
-- 初始化
-
-```
 pnpm i
 ```
 
+##### vite 配置拓展
+
+- 公共基础路径 base
+- 别名 alias
+- 开发服务器选项 server
+- ...
 
 
-#### 集成eslint prettier
 
-##### eslint
+
+
+#### 编码规范 
+
+##### Eslint
+
+---
 
 1. 安装eslint
 
@@ -70,7 +78,9 @@ export default defineConfig({
 
 
 
-##### prettier
+##### Prettier
+
+---
 
 1. 安装 prettier
 
@@ -98,8 +108,6 @@ module.exports = {
 }
 ```
 
-
-
 **修改 .eslintrc.js 配置**
 
 ```
@@ -118,7 +126,9 @@ module.exports = {
 
 
 
-#### 集成ts
+##### TS
+
+---
 
 ```
 pnpm add -D "@types/node"
@@ -127,5 +137,34 @@ pnpm add -D "@typescript-eslint/eslint-plugin"
 pnpm add -D "@typescript-eslint/parser"
 ```
 
-##### vue-shim.d.ts文件
+- tsconfig 文件配置
+
+- env.d.ts 文件
+
+**注**：配置`vue-shim.d.ts文件`，让项目识别 .vue 文件
+
+
+
+##### git hook
+
+---
+
+
+
+
+
+### 应用配置
+
+#### Vue-router
+
+#### Pinia
+
+#### Axios
+
+##### 封装
+
+- 请求拦截，处理请求数据
+- 响应拦截，统一处理响应码等
+
+
 
