@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.1](https://github.com/WillianLiusHao/study-record/compare/v1.13.0...v1.13.1) (2023-01-29)
+
+
+### Bug Fixes
+
+* 兔年快乐，钱兔无量 ([32c08e4](https://github.com/WillianLiusHao/study-record/commit/32c08e4128ecc1d231adfe151d5ad41b46b78f64))
+
 ## [1.13.0](https://github.com/WillianLiusHao/study-record/compare/v1.12.5...v1.13.0) (2023-01-18)
 
 
