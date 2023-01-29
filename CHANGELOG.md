@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.2](https://github.com/WillianLiusHao/study-record/compare/v1.13.1...v1.13.2) (2023-01-29)
+
+
+### Bug Fixes
+
+* 微前端 ([9a74880](https://github.com/WillianLiusHao/study-record/commit/9a74880b2074ef894ae406f307b096038fa064ed))
+
 ### [1.13.1](https://github.com/WillianLiusHao/study-record/compare/v1.13.0...v1.13.1) (2023-01-29)
 
 
