@@ -93,14 +93,14 @@
 
 ### 重难点
 
-1. 子应用是如何挂载的？
+##### 1. 子应用是如何挂载的？
 
     首先，所有的子应用在 mian 中会对 render 函数进行一层封装，用于区分当前是否是在微前端环境中
-    
+
     - 在基座执行 start 的时候，会在 window 上挂载一个全局变量`__IS__SINGLESPA__`， 供子应用区分当前环境
     - 当然，子应用也可以单独启动，直接在当前 app 容器中挂载 
 
-2. 如何在vite项目使用？
+##### 2. 如何在vite项目使用？
   
     vite 应用是采用 esm，统一是发请求的模式，故应尽可能将 js/css 等资源在 main 中编写
 
@@ -108,10 +108,10 @@
 
 
     qiankun 官方现在还暂未支持 所以要引入第三方库 `vite-plugin-qiankun`,该库有2个常用内容
-
+    
     > renderWithQiankun 
 
-3. 资源如何处理的？
+##### 3. 资源如何处理的？
 
 - 传统的 cli 模式下([import-html-entry](https://github.com/kuitos/import-html-entry))
 
@@ -127,13 +127,79 @@
 
   外部资源的话，vite 会自动发送请求获取
 
-4. 沙箱如何实现的？
+##### 4. 沙箱如何实现的？
 
-- js 沙箱
-  - 子项目加载前：对 window 做快照
-  - 子项目卸载后：恢复这个快照
+- 为什么要有沙箱
 
-  - SanpshotSandbox
+微前端多应用的场景下，变量冲突，样式冲突
+
+- 沙箱的原理
+  + 子项目加载前：对 window 做快照
+  + 子项目卸载后：恢复这个快照
+
+- 分类
+  + **快照沙箱：SanpshotSandbox**
+  + **代理沙箱：ProxySandbox**
+
+```js
+class SnapshotSandbox {
+  constructor() {
+    this.originSnapshot = {} // 记录每个子应用激活前 window 的快照
+    this.modifyPropsMap = {} // 记录子应用的修改了的属性
+  }
+  active() {
+    for(let prop in window) {
+      if(window.hasOwnProperty(prop)) {
+        this.originSnapshot[prop] = window[prop] // 逐个属性赋值，记录快照
+      }
+    }
+    Object.keys(this.modifyPropsMap).forEach(key => {
+      window[key] = this.modifyPropsMap[key]
+    })
+  }
+  inActive() {
+    for(let prop in window) {
+      if(window.hasOwnProperty(prop)) {
+        if(window[prop] !== this.originSnapshot[prop]) { // 说明子应用有些属性被修改了
+          this.modifyPropsMap[prop] = window[prop] // 恢复快照前记录变化的属性
+          window[prop] = this.originSnapshot[prop] // 恢复
+        }
+      }
+    }
+    window = this.originSnapshot
+  }
+}
+```
+
+```js
+class proxySandbox {
+  constructor() {
+    this.originWindow = {}
+    this.fackWindow = {}
+    const proxy = new Proxy(this.fackWindow, {
+      set: (target, key, value) => {
+        if(this.sandboxRunning) {
+          // 如果设置的键是代理对象自有的，在set前会经过get函数，所以此时的target 为代理对象
+          // 反之为 window
+          target[key] = value
+          return true
+        }
+      },
+      get: (target, key) => {
+        // 当代理对象有该属性时候，返回代理对象
+        return target.hasOwnProperty(key) ? target[key] : window[key]
+      }
+    })
+    this.proxy = proxy
+  }
+  active() {
+    this.sandboxRunning = true
+  }
+  inActive() {
+    this.sandboxRunning = false
+  }
+}
+```
 
 - css 沙箱
   - 

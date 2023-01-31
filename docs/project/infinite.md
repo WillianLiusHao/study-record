@@ -187,9 +187,9 @@
 
 | 微前端框架 | 原理 | 优点 | 不足 |
 | ---- | ---- | ---- | ---- |
-| qiankun(ali基于single-spa) | 监听路由变化，渲染对应的子应用，进行挂载 |      | 1.单一子应用   2.子应用无法保活  3.接入适配成本高 |
-| wujie(tencent) |      |      |      |
-| micro-app(jd) | **WebComponent**、CustomElement、ShadowDom |      |      |
+| qiankun(ali基于single-spa) | 监听路由变化，渲染对应的子应用，进行挂载 | 1.单一子应用   2.子应用无法保活  3.接入适配成本高 |
+| wujie(tencent) |      |      |
+| micro-app(jd) | **WebComponent**、CustomElement、ShadowDom |      |
 
 [**微模块**](https://eluxjs.com/designed/micro-module.html)
 

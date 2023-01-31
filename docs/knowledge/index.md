@@ -22,10 +22,37 @@
 7. 计算机网络
 8. 算法
 
-
-
 #### 面经  
 
 [2021字节跳动前端-掘金-cjinhuo](https://juejin.cn/post/6990174096554360869#heading-21)
+
 [前端八股文](https://www.i4k.xyz/article/NumbSilver/116891971)
+
 [我背透了这些前端八股文](https://blog.csdn.net/Y0W1as5eg37urFdS/article/details/113777492)
+
+
+> 进阶知识点
+
+1. 浏览器工作原理
+  - 进程线程/渲染原理
+  - 垃圾回收
+
+
+> 时间安排(2023.02)
+
+- vue(5)
+  - vue上基础(44题)
+  - vue下全家桶(33题)
+
+- js(5)
+
+- 网络(3)
+
+- 浏览器原理(5)
+
+- 项目(10)
+  1. 微前端 + monorepo
+  2. 低代码
+  3. vite
+  4. 性能监控
+  5. jspdf + puppeteer
