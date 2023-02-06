@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/WillianLiusHao/study-record/compare/v1.14.0...v1.15.0) (2023-02-06)
+
+
+### Features
+
+* '增加vuepress文档' ([60040ba](https://github.com/WillianLiusHao/study-record/commit/60040ba44dac8a3718ecada0dc132a08ebd695d2))
+
 ## [1.14.0](https://github.com/WillianLiusHao/study-record/compare/v1.13.3...v1.14.0) (2023-02-06)
 
 
