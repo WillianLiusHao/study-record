@@ -1,8 +1,5 @@
 ## 手写微前端框架
 
-### 微前端框架工作原理（此处以qiankun 为例）
-
-
 ### 需求分析
 
 1. 支持不同框架子应用
@@ -199,6 +196,22 @@ class proxySandbox {
     this.sandboxRunning = false
   }
 }
+```
+
+> 然后利用 微前端框架在处理执行子应用的 script 代码的时候，利用 **with** 将子应用的 顶层作用域定义为子应用代理的对象
+
+```js
+scripts.forEach(code => {
+  const codeWrap = `;(function (proxyWindow) { 
+    with(proxyWindow) {
+      (function(window) {${code}}).call(proxyWindow, proxyWindow)
+    }
+  })(this)`
+  new Function(codeWrap).call(app.sandbox.proxyWindow)
+})
+
+// (function(window) {${code}}).call(proxyWindow, proxyWindow)
+// 这样，子应用代码执行时，子应用中的 window 被 proxyWindow 所取代了
 ```
 
 - css 沙箱

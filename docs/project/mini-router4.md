@@ -16,9 +16,7 @@ app.use(router)
 - history: 代表了不同的路由模式，通过不同的 API 创建
 - routes: 路由配置
 
-
 router 对象通过提供 `install` 方法，供 `.use` 函数使用，同时把 router 实例 `挂载到app` 上
-
 
 ### 核心原理
 
@@ -48,12 +46,10 @@ let _router: MyRouter
 
 而这些方法都是通过调用 `window.history` API，（`history.pushState`、`history.replaceState`、`history.go`）
 
-
 #### createWebHashHistory
 
 - 先对 base 路径做 '#' 处理
 - 处理完后，调用 `createWebHistory`,并传入处理后的 base
-
 
 #### createRouter
 
