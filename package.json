@@ -1,6 +1,6 @@
 {
   "name": "study-record",
-  "version": "1.17.0",
+  "version": "1.17.1",
   "description": "日常学习记录",
   "main": "index.js",
   "repository": "git@github.com:WillianLiusHao/study-record.git",
