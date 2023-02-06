@@ -325,10 +325,21 @@ Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的
 | 不支持map、set等数据结构 | 支持 |
 | 兼容性好 | 兼容性差 |
 
+
 - proxy 惰性响应式
+
 
 - Reflect
 
+  + 改正 this 指向
+  + proxy 的一些方法需要返回 true/false
+    + 使用Object：严格模式下对对象的操作会报错导致无法返回
+    + 使用Reflect：Reflect的操作会直接返回操作结果，达成 `proxy监听,Reflect执行` 的效果
+  + 解决历史问题，集成了所有对Object操作的方法
+
+
 - 对数组的处理
+
+  +
 
 - 对 set、map 的处理
