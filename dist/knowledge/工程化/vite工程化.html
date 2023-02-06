@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>vite 项目工程 (Vite4 + Vue3 + Ts) | 前端随笔 WillianLiusHao</title>
+    <meta name="generator" content="VuePress 1.9.8">
+    
+    <meta name="description" content="Record William&#39;s daily study notes">
+    
+    <link rel="preload" href="/WillianLiusHao/assets/css/0.styles.d0aae437.css" as="style"><link rel="preload" href="/WillianLiusHao/assets/js/app.ae16b7fb.js" as="script"><link rel="preload" href="/WillianLiusHao/assets/js/2.8b11eef9.js" as="script"><link rel="preload" href="/WillianLiusHao/assets/js/19.e96f48f5.js" as="script"><link rel="prefetch" href="/WillianLiusHao/assets/js/10.0254b9aa.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/11.c951f4f1.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/12.f4e59a01.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/13.181bfb4f.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/14.bb6194d3.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/15.4c0341f1.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/16.c2c03bdc.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/17.f9597e59.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/18.37fea0cb.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/20.38da475d.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/21.d6ea83fb.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/22.fe101214.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/23.c511b9ed.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/24.47a40d9a.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/25.30745e28.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/26.c1c8c70b.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/27.7eb7b5ea.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/28.c1523410.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/29.c0d1f9d7.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/3.85ccf5a7.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/30.f56cc46d.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/31.cd12686f.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/32.0a947c5c.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/33.bea7fbf2.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/34.9e01da9f.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/35.1c5a5c5f.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/36.31df5eb6.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/37.84fde335.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/38.62be8779.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/39.dac841b5.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/4.c11d9ab6.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/40.0a5be4fe.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/41.e4aa8c16.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/42.315b34a2.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/5.3ced4326.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/6.365ce84f.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/7.83f2c71d.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/8.a3b778af.js"><link rel="prefetch" href="/WillianLiusHao/assets/js/9.2c288a11.js">
+    <link rel="stylesheet" href="/WillianLiusHao/assets/css/0.styles.d0aae437.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/WillianLiusHao/" class="home-link router-link-active"><!----> <span class="site-name">前端随笔 WillianLiusHao</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/WillianLiusHao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/WillianLiusHao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>daily</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>knowledge</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>html&amp;css&amp;js</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>vue</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/WillianLiusHao/knowledge/大纲.html" class="sidebar-link">大纲.md</a></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>工程化</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/WillianLiusHao/knowledge/工程化/engineering.html" class="sidebar-link">engineering.md</a></li><li><a href="/WillianLiusHao/knowledge/工程化/vite.html" class="sidebar-link">vite.md</a></li><li><a href="/WillianLiusHao/knowledge/工程化/vite工程化.html" class="active sidebar-link">vite工程化.md</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/WillianLiusHao/knowledge/工程化/vite工程化.html#vite-项目工程-vite4-vue3-ts" class="sidebar-link">vite 项目工程 (Vite4 + Vue3 + Ts)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/WillianLiusHao/knowledge/工程化/vite工程化.html#工程配置" class="sidebar-link">工程配置</a></li><li class="sidebar-sub-header"><a href="/WillianLiusHao/knowledge/工程化/vite工程化.html#应用配置" class="sidebar-link">应用配置</a></li></ul></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>性能优化</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>手写</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>浏览器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>计算机网络</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>project</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/WillianLiusHao/" aria-current="page" class="sidebar-link">README.md</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="vite-项目工程-vite4-vue3-ts"><a href="#vite-项目工程-vite4-vue3-ts" class="header-anchor">#</a> vite 项目工程 (Vite4 + Vue3 + Ts)</h2> <h3 id="工程配置"><a href="#工程配置" class="header-anchor">#</a> 工程配置</h3> <h4 id="vite-项目创建、初始化"><a href="#vite-项目创建、初始化" class="header-anchor">#</a> Vite 项目创建、初始化</h4> <h5 id="创建项目、初始化"><a href="#创建项目、初始化" class="header-anchor">#</a> 创建项目、初始化</h5> <div class="language-#js extra-class"><pre class="language-text"><code>pnpm create vite@latest my-vue-app -- --template vue
+pnpm i
+</code></pre></div><h5 id="vite-配置拓展"><a href="#vite-配置拓展" class="header-anchor">#</a> vite 配置拓展</h5> <ul><li>公共基础路径 base</li> <li>别名 alias</li> <li>开发服务器选项 server</li> <li>...</li></ul> <h4 id="编码规范"><a href="#编码规范" class="header-anchor">#</a> 编码规范</h4> <h5 id="eslint"><a href="#eslint" class="header-anchor">#</a> Eslint</h5> <hr> <ol><li>安装eslint</li></ol> <div class="language- extra-class"><pre class="language-text"><code>pnpm add -D eslint
+</code></pre></div><ol start="2"><li>初始化配置</li></ol> <div class="language- extra-class"><pre class="language-text"><code>npx eslint --init
+</code></pre></div><ol start="3"><li>安装 eslint 的 vite 插件</li></ol> <div class="language- extra-class"><pre class="language-text"><code>pnpm add -D vite-plugin-eslint
+</code></pre></div><ol start="4"><li>安装 eslint-parser</li></ol> <div class="language- extra-class"><pre class="language-text"><code>pnpm add -D '@babel/core'
+pnpm add -D '@babel/eslint-parser'
+</code></pre></div><ol start="5"><li>配置 vite.config.ts</li></ol> <div class="language- extra-class"><pre class="language-text"><code>import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import eslintPlugin from 'vite-plugin-eslint'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    eslintPlugin({
+      include: ['src/**/*.ts', 'src/**/*.vue', 'src/*.ts', 'src/*.vue']
+    })
+  ],
+  resolve: {
+    alias: {
+      '@': '/src/'
+    }
+  }
+})
+</code></pre></div><h5 id="prettier"><a href="#prettier" class="header-anchor">#</a> Prettier</h5> <hr> <ol><li>安装 prettier</li></ol> <div class="language- extra-class"><pre class="language-text"><code>pnpm add -D prettier
+pnpm add -D eslint-config-prettier // eslint 兼容插件
+pnpm add -D eslint-plugin-prettier // eslint 的 prettier
+</code></pre></div><ol start="2"><li>配置 .prettierrc.js</li></ol> <div class="language- extra-class"><pre class="language-text"><code>module.exports = {
+  printWidth: 120,
+  tabWidth: 2,
+  tabs: false,
+  semi: false,
+  singleQuote: true,
+  quoteProps: 'as-needed',
+  tailingComma: 'all',
+  bracketSpacing: true,
+  jsxBracketSameLine: false,
+  arrowParens: 'always',
+  endOfLine: 'auto',
+}
+</code></pre></div><p><strong>修改 .eslintrc.js 配置</strong></p> <div class="language- extra-class"><pre class="language-text"><code>module.exports = {
+    env: { node: true },
+    parser: 'vue-eslint-parser',
+    parserOptions: { parser: '@typescript-eslint/parser', sourceType: 'module' },
+    extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'prettier'],
+    plugins: ['vue', '@typescript-eslint'],
+    globals: { },
+    rules: {
+      'vue/multi-word-component-names': 0,
+    },
+  }
+</code></pre></div><h5 id="ts"><a href="#ts" class="header-anchor">#</a> TS</h5> <hr> <div class="language- extra-class"><pre class="language-text"><code>pnpm add -D &quot;@types/node&quot;
+pnpm add -D typescript
+pnpm add -D &quot;@typescript-eslint/eslint-plugin&quot;
+pnpm add -D &quot;@typescript-eslint/parser&quot;
+</code></pre></div><ul><li><p>tsconfig 文件配置</p></li> <li><p>env.d.ts 文件</p></li></ul> <p><strong>注</strong>：配置<code>vue-shim.d.ts文件</code>，让项目识别 .vue 文件</p> <h5 id="git-hook"><a href="#git-hook" class="header-anchor">#</a> git hook</h5> <hr> <h3 id="应用配置"><a href="#应用配置" class="header-anchor">#</a> 应用配置</h3> <h4 id="vue-router"><a href="#vue-router" class="header-anchor">#</a> Vue-router</h4> <h4 id="pinia"><a href="#pinia" class="header-anchor">#</a> Pinia</h4> <h4 id="axios"><a href="#axios" class="header-anchor">#</a> Axios</h4> <h5 id="封装"><a href="#封装" class="header-anchor">#</a> 封装</h5> <ul><li>请求拦截，处理请求数据</li> <li>响应拦截，统一处理响应码等</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/WillianLiusHao/knowledge/工程化/vite.html" class="prev">
+        vite.md
+      </a></span> <span class="next"><a href="/WillianLiusHao/knowledge/性能优化/optimization.html">
+        optimization.md
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/WillianLiusHao/assets/js/app.ae16b7fb.js" defer></script><script src="/WillianLiusHao/assets/js/2.8b11eef9.js" defer></script><script src="/WillianLiusHao/assets/js/19.e96f48f5.js" defer></script>
+  </body>
+</html>

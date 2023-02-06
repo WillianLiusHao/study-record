@@ -8,6 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "prepare": "husky install",
     "commit": "git add -A && cz && yarn release && git push --follow-tags origin main",
     "release": "standard-version"
@@ -16,12 +18,16 @@
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.1",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "vuepress": "^1.9.8",
+    "vuepress-plugin-auto-sidebar": "^2.3.2"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "markdown-it-disable-url-encode": "^1.0.1"
+  }
 }
