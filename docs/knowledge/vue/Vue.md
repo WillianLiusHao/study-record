@@ -1,46 +1,46 @@
 ### 大纲
 - **一、Vue 基础**
-  - [x] 1. Vue 权限管理
-  - [ ] 2. 双向绑定的使用和原理
-  - [ ] 3. nextTick
-  - [x] 4. 组件通讯的方式
-  - [ ] 5. v-for 和 v-if 的优先级
-  - [x] 6. computed 和 watch 区别
-  - [ ] 7. keep-alive 的理解，如何实现，缓存的是什么？
-  - [ ] 8. vue 性能优化
-  - [ ] 9. 单页应用的理解
+  - 1. Vue 权限管理
+  - 2. 双向绑定的使用和原理
+  - 3. nextTick
+  - 4. 组件通讯的方式
+  - 5. v-for 和 v-if 的优先级
+  - 6. computed 和 watch 区别
+  - 7. keep-alive 的理解，如何实现，缓存的是什么？
+  - 8. vue 性能优化
+  - 9. 单页应用的理解
   
 - **二、生命周期**
-  - [ ] 1. 说一下Vue 生命周期
-  - [ ] 2. created 和 mounted 的区别
-  - [ ] 3. 哪个生命周期发请求
-  - [ ] 4. keep-alive 与 生命周期
-  - [x] 5. 父子声明周期顺序
+  - 1. 说一下Vue 生命周期
+  - 2. created 和 mounted 的区别
+  - 3. 哪个生命周期发请求
+  - 4. keep-alive 与 生命周期
+  - 5. 父子声明周期顺序
 
 - **三、原理题**
-  - [ ] 1. 响应式原理
-  - [ ] 2. 模板渲染原理
-  - [ ] 3. vdom 理解
-  - [ ] 4. diff 过程
-  - [ ] 5. key 的作用
+  - 1. 响应式原理
+  - 2. 模板渲染原理
+  - 3. vdom 理解
+  - 4. diff 过程
+  - 5. key 的作用
 
 - **四、vue-router**
-  - [X] 1. 路由懒加载
-  - [ ] 2. **路由的history 和 hash 模式？区别？实现原理？**
-  - [ ] 3. 前端路由的理解
-  - [ ] 4. 路由守卫
+  - 1. 路由懒加载
+  - 2. **路由的history 和 hash 模式？区别？实现原理？**
+  - 3. 前端路由的理解
+  - 4. 路由守卫
 
 - **五、vuex**
-  - [x] 1. action 和 mutation 的区别
-  - [ ] 2. 五大模块
-  - [x] 3. 刷新后 vuex 状态丢失怎么办？
-  - [ ] 4. 如何监听 vuex 的状态变化
-  - [ ] 5. 你觉得 vuex 有什么缺点
+  - 1. action 和 mutation 的区别
+  - 2. 五大模块
+  - 3. 刷新后 vuex 状态丢失怎么办？
+  - 4. 如何监听 vuex 的状态变化
+  - 5. 你觉得 vuex 有什么缺点
 
 - **六、vue3.0**
-  - [ ] 1. vue3 优化
-  - [ ] 2. vue3 为什么用 proxy 代替 Object.defineProperty？
-  - [ ] 3. ref 和 reactive 的区别
+  - 1. vue3 优化
+  - 2. vue3 为什么用 proxy 代替 Object.defineProperty？
+  - 3. ref 和 reactive 的区别
 
 ---
 ### 一、Vue 基础
