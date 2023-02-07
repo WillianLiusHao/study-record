@@ -315,31 +315,144 @@ Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的
 
 #### 2. vue3 响应式
 
-- defineProperty 和 Proxy
+1. defineProperty 和 Proxy
 
 | defineProperty | Proxy |
 | :--: | :--: |
 | 监听对象属性 | 代理整个对象 |
 | 不可监听对象增删 | 可以 |
-| 需循环迭代对象属性 | 惰性响应式 |
+| 需迭代遍历对象属性 | 惰性响应式 |
 | 不支持map、set等数据结构 | 支持 |
 | 兼容性好 | 兼容性差 |
 
+2. proxy 惰性响应式
 
-- proxy 惰性响应式
+3. Reflect
 
+   + 改正 this 指向（`receiver`）
+   + proxy 的一些方法需要返回 true/false
+     + 使用Object：严格模式下对对象的操作会报错导致无法返回
+     + 使用Reflect：Reflect的操作会直接返回操作结果，达成 `proxy监听,Reflect执行` 的效果
 
-- Reflect
+   + 解决历史问题，集成了所有对Object操作的方法，且Reflect 与 Proxy 的 api 一一相应
 
-  + 改正 this 指向
-  + proxy 的一些方法需要返回 true/false
-    + 使用Object：严格模式下对对象的操作会报错导致无法返回
-    + 使用Reflect：Reflect的操作会直接返回操作结果，达成 `proxy监听,Reflect执行` 的效果
-  + 解决历史问题，集成了所有对Object操作的方法
+4. **对数组的处理**
 
+   + vue2改写了7种数组操作的方法
 
-- 对数组的处理
+   + vue3代理数组时，也重写了一些方法
 
-  +
+   > **why proxy 代理了还要重写？**
 
-- 对 set、map 的处理
+   - 数组的一些原生方法 `push`、`pop`、`shift`、`unshift`、`splice` 会隐式修改数组的长度，导致数组长度的副作用被重复收集，所以这些方法执行的时候需要拦截 length 的依赖收集
+
+   - 数组的查找方法 `includes`、`indexOf`、`lastIndexOf` 对元素进行查找时，正常查找是从`代理对象查找原始数据中的某一数据`，某些情况会出现查找数据类型不同，所以需要兼容：`将数据和参数的数据类别统一化(统一为原始数据)`
+
+     > 某些情况
+
+     - 查找响应式数据本身
+
+       ```js
+       const obj = {}
+       const proxy = reactive([obj])
+       console.log(proxy.includs(proxy[0])) //false
+       ```
+
+     - 查找原始数据
+
+       ```js
+       const obj = {}
+       const proxy = reactive([obj])
+       console.log(proxy.includs(obj)) // false
+       ```
+
+     >  getter
+
+     ```js
+     createGetter() {
+       // ...
+       // 处理数组类型的 getter
+       const targetIsArray = shared.isArray(target);
+       if (!isReadonly && targetIsArray && shared.hasOwn(arrayInstrumentations, key)) {
+         // 重写/增强数组的方法： 
+         //  - 查找方法：includes、indexOf、lastIndexOf
+         //  - 修改原数组长度的方法：push、pop、unshift、shift、splice
+         return Reflect.get(arrayInstrumentations, key, receiver);
+       }
+       // ...
+     }
+     
+     // 数组捕获器，包含 3个查找和5个影响长度的方法
+     const arrayInstrumentations = createArrayInstrumentations();
+     function createArrayInstrumentations() {
+       const instrumentations = {};
+       // 1.修改数组查找的方法，处理查找失败的问题
+       ['includes', 'indexOf', 'lastIndexOf'].forEach(key => {
+         instrumentations[key] = function (...args) {
+           // 外部调用查找方法，此时的上下文 this 是代理后的 数组
+           // 使用查找的方法时，需要到原始数据中去寻找，所以使用 toRaw 还原响应式数据
+           const arr = toRaw(this);
+           for (let i = 0, l = this.length; i < l; i++) {
+             track(arr, "get", i + '');
+           }
+           // 执行数组方法的时候，先尝试使用原始的参数(参数可能也是响应式数组)
+           const res = arr[key](...args);
+           if (res === -1 || res === false) {
+             // 如果方法执行无结果，则使用响应式的参数
+             return arr[key](...args.map(toRaw));
+           }
+           else {
+             return res;
+           }
+         };
+       });
+       // 2.改写5个会修改数组长度的方法
+       ['push', 'pop', 'shift', 'unshift', 'splice'].forEach(key => {
+           instrumentations[key] = function (...args) {
+             // 这些方法会隐式的改变数组的长度，导致 length 副作用被提前收集
+             // 使用 pauseTracking 先暂停依赖收集，待方法执行完毕再恢复收集
+             pauseTracking();
+             const res = toRaw(this)[key].apply(this, args);
+             resetTracking();
+             return res;
+           };
+       });
+       return instrumentations;
+     }
+     ```
+
+     > setter
+
+     ```js
+     function createSetter(shallow = false) {
+       return function set(
+         target: object,
+         key: string | symbol,
+         value: unknown,
+         receiver: object
+       ): boolean {
+         // ...
+         // 通过 "当前操作的下标是否 < 数组长度" 判断是 "修改 or 新增"类型 
+         const hadKey =
+           isArray(target) && isIntegerKey(key)
+             ? Number(key) < target.length
+             : hasOwn(target, key)
+      
+         // 设置对应值
+         const result = Reflect.set(target, key, value, receiver)
+      
+         if (target === toRaw(receiver)) {
+           if (!hadKey) {
+             // 目标对象不存在对应的 key，则为新增操作，会改变 length,需要触发 length 副作用
+             trigger(target, TriggerOpTypes.ADD, key, value)
+           } else if (hasChanged(value, oldValue)) {
+             // 目标对象存在对应的值，则为修改操作,不需要触发length 副作用
+             trigger(target, TriggerOpTypes.SET, key, value, oldValue)
+           }
+         }
+      
+         // 返回修改结果
+         return result
+       }
+     }
+     ```
