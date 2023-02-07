@@ -2,7 +2,7 @@
 home: true
 heroImage: https://images.vrm.cn/ox/2023/02/07/logo.jpg
 actionText: Get Started →
-actionLink: /knowledge/vue
+actionLink: /knowledge/vue/
 ---
 
 <div class="features">

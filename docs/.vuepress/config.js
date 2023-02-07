@@ -14,14 +14,17 @@ function buildChildren(path, parentName = "") {
       if (ignoreList.includes(file)) return;
 
       const subPath = `${path}/${file}`;
-      const current = { title: file, sidebarDepth: 2, collapsable: true };
+
+      const title = file.endsWith('.md') ? file.replace('.md', '') : file
+      const current = { title, sidebarDepth: 2, collapsable: true };
 
       if (fs.statSync(subPath).isDirectory()) {
         current.children = buildChildren(subPath, `${parentName}/${file}`);
       } else {
-        const suffixName = file.slice(-3);
-        if (suffixName !== ".md") return;
-        current.path = encodeURI(`${parentName}/${file.slice(0, -3)}`)
+        if(!file.endsWith('.md')) return
+
+        current.path = encodeURI(`${parentName}/${file.slice(0, file.includes('README.md') ? -9 : -3)}`)
+        
       }
       return current;
     })

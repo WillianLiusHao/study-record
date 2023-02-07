@@ -1,6 +1,6 @@
 # mini-qiankun
 
-> 学习微前端，最小化实现一个微前端框架，尽可能完善 qiankun 现有功能
+> 学习微前端，最小化实现一个微前端框架，尽可能完善 mini-qiankun 现有功能
 
 
 ## 1. 特点
@@ -284,11 +284,35 @@ scripts.forEach(code => {
 > 4. 切换到A：B应用卸载（变成unmounted）-> `A应用加载过资源了,只进行 mount 流程`
 
 
-### 4. 如何获取子应用声明周期钩子？
+### 4. 如何获取子应用生命周期钩子？
 
-    - 子应用将 生命周期函数挂载到 window 上（子应用代理对象），供主应用获取
+  1. **模块导出 + umd 规范**（官方文档）
 
-    - 子应用 `main.js` 导出函数，主应用通过 动态 import 的方式获取子应用中的生命周期函数
+        ```js
+          // src/main.js
+          export async function bootstrap() { /*...*/ }
+          export async function mount(props) { /*...*/ }
+          export async function unmount(props) { /*...*/ }
+        ```
+        ```js
+          // vue.config.js
+          const packageName = require('./package.json').name;
+          module.exports = {
+            output: {
+              library: `${packageName}-[name]`,
+              libraryTarget: 'umd',
+              jsonpFunction: `webpackJsonp_${packageName}`,
+            }
+          };
+        ```
+  
+
+  2. 沙箱代理 + 挂在到全局上
+
+        ```js
+        在主应用执行完沙箱代理后，子应用将 `bootstrap mount unmount` 挂到window(实则是代
+        理对象)上，供主应用获取
+        ```
 
 ### 5. 资源跨域访问
 
@@ -308,16 +332,14 @@ scripts.forEach(code => {
 
 ### 6. 资源加载
 
-    - 配置资源发布路径`publicPath`,否则主应用在请求子应用相对路径的资源(如：/src/main.js)就会请求到主应用下的资源
+    - 动态配置资源发布路径`publicPath`,否则主应用在请求子应用相对路径的资源(如：/src/main.js)就会请求到主应用下的资源
 
         ```js
-          module.exports = defineConfig({
-            // ...
-            devServer: {
-              port: 8081,
-            },
-            publicPath:`//localhost:${port}`,
-          })
+          if (window.__POWERED_BY_QIANKUN__) {
+            // window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ 由主应用提供，值为 子应用的 entry
+            // webpack 项目运行时，会动态生成 __webpack_public_path__
+            __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__;
+          }
         ```
 
 
