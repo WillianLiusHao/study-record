@@ -1,4 +1,4 @@
-## 性能优化
+# 性能优化
 
 ![页面加载优化](https://web.dev/fast/)
 页面更新优化
@@ -17,7 +17,7 @@
 performance.getEntriesByName('first-contentful-paint')[0].startTime
 ```
 
-### 确认优化方向
+## 确认优化方向
 
   - 资源优化
     - 使用 Brotli 进行纯文本压缩（Brotli是一种最初由 Google 开发的压缩算法，提供优于 gzip 的压缩）
@@ -26,16 +26,16 @@ performance.getEntriesByName('first-contentful-paint')[0].startTime
   - 传输优化
   - 网络优化
 
-### 性能监控
+## 性能监控
 
   - 建立监控体系
   - 确定采集指标
   - 分析页面
 
-### 一、首屏加载优化
+## 一、首屏加载优化
 
 
-#### 浏览器渲染进程及工作流程
+### 浏览器渲染进程及工作流程
 
 进程及主要职责
 
@@ -56,7 +56,7 @@ performance.getEntriesByName('first-contentful-paint')[0].startTime
 4. 定时触发器线程
 5. 异步 http 请求线程 
 
-#### 关键渲染路径 CRP
+### 关键渲染路径 CRP
 
 > 关键渲染路径是浏览器将 HTML，CSS 和 JavaScript 转换为屏幕上的像素所经历的步骤序列。
 > 优化关键渲染路径可提高渲染性能。
@@ -76,11 +76,11 @@ performance.getEntriesByName('first-contentful-paint')[0].startTime
 3. 关键路径长度：通过区分关键资源的优先级来优化被加载关键资源的顺序，来缩短关键路径长度
 
 
-##### DOM
+#### DOM
 
 - 特点：增量
 
 
-##### CSSOM
+#### CSSOM
 
 - 特点：渲染阻塞(因为css规则可以覆盖，所以直到DCCOM完成才绘制页面)

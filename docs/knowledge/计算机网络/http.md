@@ -1,6 +1,6 @@
-## HTTP
+# HTTP
 
-### 1. http1.0、http 1.1、 http2.0
+## 1. http1.0、http 1.1、 http2.0
 
 - http 1.0
 

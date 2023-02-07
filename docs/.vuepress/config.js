@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const process = require("process");
 
-const ignoreList = [".vuepress", 'README.md'];
+const ignoreList = [".vuepress"];
 
 const workPath = path.join(process.cwd() + "/docs");
 
@@ -12,8 +12,10 @@ function buildChildren(path, parentName = "") {
   return files
     .map((file) => {
       if (ignoreList.includes(file)) return;
+
       const subPath = `${path}/${file}`;
-      const current = { title: file };
+      const current = { title: file, sidebarDepth: 2, collapsable: true };
+
       if (fs.statSync(subPath).isDirectory()) {
         current.children = buildChildren(subPath, `${parentName}/${file}`);
       } else {
@@ -35,7 +37,8 @@ module.exports = {
   themeConfig: {
     nav: [{ text: "GitHub", link: "https://github.com/WillianLiusHao" }],
     sidebar,
-    displayAllHeaders: true
+    // displayAllHeaders: true,
+    // activeHeaderLinks: false,
   },
   dest: path.resolve(__dirname, "../", "../", "dist"),
   base: "/study-record/",

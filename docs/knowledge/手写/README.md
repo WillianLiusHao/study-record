@@ -1,6 +1,6 @@
-## 手写
+# 手写
 
-#### 1. new
+## 1. new
 
 ```js
 function MyNew(fn, ...args) {
@@ -21,7 +21,7 @@ console.log(p1);
 console.log(p1.__proto__ === Person.prototype);
 ```
 
-#### 2. call / bind / apply
+## 2. call / bind / apply
 
 ```js
 Function.prototype.myCall = function(target, ...opts) {
@@ -47,7 +47,7 @@ Function.prototype.myApply = function(target, arr) {
 }
 ```
 
-#### 3. 深浅克隆
+## 3. 深浅克隆
 
 ```js
 function shallowClone(obj) {
@@ -77,7 +77,7 @@ function deepClone(obj) {
 }
 ```
 
-#### 4. 防抖 / 节流
+## 4. 防抖 / 节流
 
 ```js
 function debounce(fn, wait, immediate = true) {
@@ -102,7 +102,7 @@ document.addEventListener("click", debFn);
   function
 ```
 
-#### 5. instanceof
+## 5. instanceof
 
 ```js
 function myInstance(target, origin) {
@@ -116,9 +116,9 @@ function myInstance(target, origin) {
 }
 ```
 
-#### 6. 柯里化
+## 6. 柯里化
 
-#### 7. 继承(组合寄生)
+## 7. 继承(组合寄生)
 
 每次写前看一遍这个图
 
@@ -162,11 +162,11 @@ var child1 = new Child("william", 12); // {name: 'william', num: [0,1,2]}
 child1.sayName(); //william
 ```
 
-#### 8. **Promise**
+## 8. **Promise**
 
-#### 9. 异步控制并发数
+## 9. 异步控制并发数
 
-#### 10. 数组去重 / 扁平化
+## 10. 数组去重 / 扁平化
 
 ```js
 [...new Set(arr)];
@@ -186,7 +186,7 @@ function myFlat(arr) {
 }
 ```
 
-#### 11. 发布订阅 (EventListener)
+## 11. 发布订阅 (EventListener)
 
 ```js
 class EventEmitter {
@@ -245,7 +245,7 @@ event.emit("dbClick");
 event.emit("dbClick");
 ```
 
-#### 12. compose
+## 12. compose
 
 ```js
 function double(num) {
@@ -270,7 +270,7 @@ const fn = myCompose(double, add2, square);
 fn(2);
 ```
 
-#### 13. 排序
+## 13. 排序
 
 1. 冒泡排序 `O(n^2)`：双循环，外层控制对比轮次，内层控制对比的下标。
 2. 选择排序 `O(n^2)`：双循环，内外侧都控制下标，外层控制当前要替换的下标，内层控制用于对比的下标。
@@ -387,7 +387,7 @@ function merge(left, right) {
 ```
 
 
-#### 14. Promise
+## 14. Promise
 
 1. 异步（通过状态实现,`pending状态`会暂缓执行）
 2. then 的微任务（回调函数使用`微任务` 封装）

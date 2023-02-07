@@ -1,17 +1,17 @@
-## vite 项目工程 (Vite4 + Vue3 + Ts)
+# vite 项目工程 (Vite4 + Vue3 + Ts)
 
-### 工程配置
+## 工程配置
 
-#### Vite 项目创建、初始化
+### Vite 项目创建、初始化
 
-##### 创建项目、初始化
+#### 创建项目、初始化
 
 ```#js
 pnpm create vite@latest my-vue-app -- --template vue
 pnpm i
 ```
 
-##### vite 配置拓展
+#### vite 配置拓展
 
 - 公共基础路径 base
 - 别名 alias
@@ -22,9 +22,9 @@ pnpm i
 
 
 
-#### 编码规范 
+### 编码规范 
 
-##### Eslint
+#### Eslint
 
 ---
 
@@ -78,7 +78,7 @@ export default defineConfig({
 
 
 
-##### Prettier
+#### Prettier
 
 ---
 
@@ -126,7 +126,7 @@ module.exports = {
 
 
 
-##### TS
+#### TS
 
 ---
 
@@ -145,7 +145,7 @@ pnpm add -D "@typescript-eslint/parser"
 
 
 
-##### git hook
+#### git hook
 
 ---
 
@@ -153,15 +153,15 @@ pnpm add -D "@typescript-eslint/parser"
 
 
 
-### 应用配置
+## 应用配置
 
-#### Vue-router
+### Vue-router
 
-#### Pinia
+### Pinia
 
-#### Axios
+### Axios
 
-##### 封装
+#### 封装
 
 - 请求拦截，处理请求数据
 - 响应拦截，统一处理响应码等

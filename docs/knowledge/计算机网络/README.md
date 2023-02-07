@@ -1,10 +1,10 @@
-## 计算机网络
+# 计算机网络
 
 ![计算机网络](https://images.vrm.cn/ox/2023/02/06/jiwang.png)
 
 [答案和解析](https://juejin.cn/post/6996841019094335519)
 
-### 一、HTTP协议
+## 一、HTTP协议
 
 - GET和POST的请求的区别
 - POST和PUT请求的区别
@@ -28,7 +28,7 @@
 - URL有哪些组成部分
 - 与缓存相关的HTTP请求头有哪些
 
-### 二、HTTPS协议
+## 二、HTTPS协议
 
 - 什么是HTTPS协议？
 - TLS/SSL的工作原理
@@ -37,12 +37,12 @@
 - HTTPS的特点
 - HTTPS是如何保证安全的？
 
-### 三、HTTP状态码
+## 三、HTTP状态码
 
 - 常见的状态码
 - 同样是重定向，307，303，302的区别？
 
-### 四、DNS协议介绍
+## 四、DNS协议介绍
 
 - DNS 协议是什么
 - DNS同时使用TCP和UDP协议？
@@ -50,12 +50,12 @@
 - 迭代查询与递归查询
 - DNS 记录和报文
 
-### 五、网络模型
+## 五、网络模型
 
 - OSI七层模型
 - TCP/IP五层协议
 
-### 六、TCP与UDP
+## 六、TCP与UDP
 
 - TCP 和 UDP的概念及特点
 - TCP和UDP的区别
@@ -69,12 +69,12 @@
 - TCP粘包是怎么回事，如何处理?
 - 为什么udp不会粘包？
 
-### 七、WebSocket
+## 七、WebSocket
 
 - 对 WebSocket 的理解
 - 即时通讯的实现：短轮询、长轮询、SSE 和 WebSocket 间的区别？
 
 
-### 总结
+## 总结
 
 ![HTTP协议](https://images.vrm.cn/ox/2023/02/06/HTTP协议.png)
