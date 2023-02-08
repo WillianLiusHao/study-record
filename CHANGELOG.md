@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.5](https://github.com/WillianLiusHao/study-record/compare/v1.17.4...v1.17.5) (2023-02-08)
+
+
+### Bug Fixes
+
+* ignore dist ([c4eaf3b](https://github.com/WillianLiusHao/study-record/commit/c4eaf3b1c4bc00d3c2c17afcf41f11e8c49d19db))
+
 ### [1.17.4](https://github.com/WillianLiusHao/study-record/compare/v1.17.3...v1.17.4) (2023-02-08)
 
 
