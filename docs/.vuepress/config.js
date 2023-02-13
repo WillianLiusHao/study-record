@@ -45,5 +45,5 @@ module.exports = {
   },
   dest: path.resolve(__dirname, "../", "../", "dist"),
   base: "/study-record/",
-  evergreen: true,
+  evergreen: true
 };

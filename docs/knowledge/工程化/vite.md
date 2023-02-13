@@ -1,5 +1,8 @@
 # vite
 
+![](../../../assets/prebuild.png)
+
+
 ```js
 // vite 1.0 => vite 2.0  
 本地服务器：koa => http + connect   

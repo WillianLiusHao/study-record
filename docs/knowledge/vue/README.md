@@ -182,67 +182,96 @@
 - where：常用于表单中
 
 ### 3. keep-alive 组件原理
-
 ### 4. $nextTick 原理
-
-
-
 ### 5. diff 算法
 
-1. 概念和目的：
-Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的找出dom变化，提高更新效率。
-2. 策略：
-`同层比较`、`深度优先`、`O(n)`
-同层比较将时间复杂度由`O(n^3)`降至`O(n)`
-3. 时机：
-响应式数据变化时，重新生成render函数，生成新的虚拟dom，新旧虚拟dom执行patch函数从而进行diff算法
-4. 过程：
+[patch源码](https://blog.csdn.net/u014125106/article/details/106178805/)
 
-#### vue2 diff（双端比较）
+1. 概念和目的：  
+  Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的找出dom变化，提高更新效率。
 
-> 核心Diff算法（**双指针**）
+2. 策略：  
+  `同层比较`、`深度优先`、`O(n)`（其中同层比较将时间复杂度由`O(n^3)`降至`O(n)`）
 
-1. 前前
-2. 后后
-3. 前后
-4. 后前
+3. 时机：  
+  响应式数据变化时，重新生成render函数，生成新的虚拟dom，新旧虚拟dom执行patch函数从而进行diff算法
 
-#### vue3 diff（快速比较）
+4. 过程：   
 
-1. 比较新旧节点类型(tag)：不同则直接替换，相同则更新属性(props)
-2. 比较新旧子节点情况(四种)
-    * 都是文本节点：直接替换
-    * 新有子节点旧无子节点：添加
-    * 新无旧有：删除
-    * 新旧都有：updateChildren`（核心diff算法）`
+    - 比较新旧节点类型(tag)：不同则直接替换，相同则更新属性(props)
 
-> 核心Diff算法
-1. 自前向后
-2. 自后向前
-3. 新节点多于旧节点(新增)
-4. 少于(删除)
-5. 乱序比较**(最长递增子序列)**
+    - 比较新旧子节点情况(四种)
 
-> vue3 diff 优化
-1. 编译时
-`patchFlags` :用于标记动态节点的类型
-`Block` :相当于普通节点加了 dynamicChildrens 属性，会收集节点本身和所有动态子节点
-2. 运行时
-`最长递增子序列`：确定不用移动的最长序列，减少diff过程中的操作次数
+      * 都是文本节点：直接替换
+      * 新有子节点旧无子节点：添加
+      * 新无旧有：删除
+      * 新旧都有：updateChildren`（核心diff算法）`
+
+5. 核心 Diff 算法
+
+**vue2 （双端比较）(双指针)**
+
+    1. 前前
+    2. 后后
+    3. 前后
+    4. 后前
+
+**vue3 diff（快速比较）**
+
+    1. 自前向后
+    2. 自后向前
+    3. 新节点多于旧节点(新增)
+    4. 少于(删除)
+    5. 乱序比较 (`贪心 + 二分查找` 实现 `最长递增子序列`)
+
+> vue3 diff 优化  
+
+1. 编译时  
+  `patchFlags` :用于标记节点的更新类型
+  `Block` :相当于普通节点加了 dynamicChildrens 属性，会收集节点本身和所有动态子节点
+
+2. 运行时  
+  `最长递增子序列`：确定不用移动的最长序列，减少diff过程中的操作次数
+
 
 ### 6. v-for 为什么要加key
 
+> 帮助vue 更好的更新 virtual-dom，帮助识别更新前后是否同一个节点，防止vue 使用 `就地复用` 策略进行节点的更新
+
+
+[v-for 到底为啥要加上 key?](https://juejin.cn/post/7140446835311083534)
+
+- 就地复用 `patchUnkeyedChildren`
+
+  - 判断依据：tag-type 和 key(不设置的时候是undefined)
+
+- 为什么不推荐使用 index 作为 key
+
+  - 用 index 作为 key 值带来问题的例子  
+  
+  v-for渲染三个输入框，用index作为key值，每个输入框填入对应key值（便于观察），删除第二项，数据上确实第二项被删除了，但发现在视图上显示被删除的实际上是最后一项！！！
+  
+  ![](../../../assets/patchUnkeyed.png)
 
 ### 7. 为什么要使用虚拟DOM？
-  - 保证性能的下限
+
+  - 减少 dom 操作，减少回流重绘  
+  - 保证更新的性能下限
 
 ### 8. template 到 render 的过程 / 模板编译原理
 
-  - compile
+  - compile 模板编译
 
-    解析(template => ast) => 优化(patchFlag/cacheHandlers/hoistStatic) => 生成(ast => render)
+    - 解析 parse (template => ast)  
+    - 优化 optimize (patchFlag/cacheHandlers/hoistStatic)  
+    - 生成 generate (ast => render)  
 
-    parse => optimize => generate
+  - 视图更新  
+
+    - 监听数据变化，数据变化时基于新的数据 render 生成 vnode  
+    - 新旧 vode 对比，diff 生成真实 DOM  
+
+
 
 ```js
 - parse
@@ -280,6 +309,8 @@ Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的
     - pushState: 在历史栈中增加一条新数据
     - replaceState：替换一条数据
     - window.onpopstate: 可监听到浏览器的前进后退，history.go / back / forword 三个方法
+
+
 ### 2. 从0实现一个vue-router
 
 [mini-vueRouter](../project/mini-router4.md)
@@ -334,7 +365,7 @@ Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的
      + 使用Object：严格模式下对对象的操作会报错导致无法返回
      + 使用Reflect：Reflect的操作会直接返回操作结果，达成 `proxy监听,Reflect执行` 的效果
 
-   + 解决历史问题，集成了所有对Object操作的方法，且Reflect 与 Proxy 的 api 一一相应
+   + 解决历史问题，集成了所有对Object操作的方法，且Reflect 与 Proxy 的 api 一一 对应
 
 4. **对数组的处理**
 
@@ -456,3 +487,8 @@ Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的
        }
      }
      ```
+
+5. Set、Map的处理
+
+- Vue3 对 Map、Set做了很多特殊处理，这是因为Proxy无法直接拦截 Set、Map，因为 Set、Map的方法必须得在它们自己身上调用；Proxy 返回的是代理对象  
+- 所以 Vue3 在这里的处理是，封装了 toRaw() 方法返回原对象，通过Proxy的拦截，在调用诸如 set、add方法时，在原对象身上调用方法  
