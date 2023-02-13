@@ -183,6 +183,12 @@
 
 ### 3. keep-alive 组件原理
 ### 4. $nextTick 原理
+
+- 异步更新策略
+
+- 事件队列
+
+
 ### 5. diff 算法
 
 [patch源码](https://blog.csdn.net/u014125106/article/details/106178805/)
