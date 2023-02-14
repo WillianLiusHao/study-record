@@ -1,16 +1,26 @@
 
 ### A(映客)
 
-1、vue2与vue3的区别有哪些？
-2、vue2如果想要给响应式对象新增属性并也具有响应式，怎么做？
-3、看你写用过axios，怎么封装的？
-4、怎么实现原生的ajax？
-5、说一下promise的原理？以及有哪些静态方法？说一下all、race、allsettled的区别？
-6、promise为什么可以链式调用，原理？
-7、async/await的原理
-8、bfc的概念以及应用场景
-9、原生拖拽的api有哪些？（drag）
-10、Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log),输出什么？
+1、vue2与vue3的区别有哪些？  
+
+2、vue2如果想要给响应式对象新增属性并也具有响应式，怎么做？  
+
+3、看你写用过axios，怎么封装的？  
+
+4、怎么实现原生的ajax？  
+
+5、说一下promise的原理？以及有哪些静态方法？说一下all、race、allsettled的区别？  
+
+6、promise为什么可以链式调用，原理？  
+
+7、async/await的原理  
+
+8、bfc的概念以及应用场景  
+
+9、原生拖拽的api有哪些？（drag）  
+
+10、Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log),输出什么？  
+
 11、setTimeout(() => {
 	console.log('timer1')
 	Promise.resolve().then(() =>{
@@ -24,11 +34,13 @@
 
 	console.log('start')
 
-输出顺序是什么？
+输出顺序是什么？  
 
-12、如果让你写一个弹窗组件，你会注意哪些方面，比如有哪些属性 或者方法？
-13、如何使用api的方式调用组件？
-14、vue的响应式原理收集依赖的过程是怎么样的？
+12、如果让你写一个弹窗组件，你会注意哪些方面，比如有哪些属性 或者方法？  
+
+13、如何使用api的方式调用组件？  
+
+14、vue的响应式原理收集依赖的过程是怎么样的？  
 
 
 
