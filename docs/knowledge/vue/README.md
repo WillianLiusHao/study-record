@@ -182,11 +182,131 @@
 - where：常用于表单中
 
 ### 3. keep-alive 组件原理
-### 4. $nextTick 原理
+### 4. nextTick 原理
 
-- 异步更新策略
+- vue2
 
-- 事件队列
+  + vue 中的视图更新是异步的，在数据修改后如果要获取视图，需要加到 nextTick 中
+
+  + vue 的视图更新其实也是调用了 nextTick
+
+    * Vue观察到数据更新，就会创建一个异步任务队列`callbacks`，缓冲同一时间循环中发生的所有数据改变
+    + 视图的更新`flushSchedulerQueue/flushBatcherQueue`（也是一个队列，包含了许多数据更新触发要触发的watcher）会第一个入队
+    + 然后是用户调用时传入的回调函数入队
+    + 执行时采用优雅降级：`Promise` > `MutationObserver` > `setImmediate(IE)` > `setTimeout`
+
+![](../../../assets//nextTick.png)
+
+
+```js
+/* @flow */
+/* globals MutationObserver */
+
+import { noop } from 'shared/util'
+import { handleError } from './error'
+import { isIE, isIOS, isNative } from './env'
+
+export let isUsingMicroTask = false
+
+const callbacks = []
+let pending = false
+
+function flushCallbacks () {
+  pending = false
+  const copies = callbacks.slice(0)
+  callbacks.length = 0
+  for (let i = 0; i < copies.length; i++) {
+    copies[i]()
+  }
+}
+
+let timerFunc
+
+// task的执行优先级
+// Promise -> MutationObserver -> setImmediate -> setTimeout
+
+if (typeof Promise !== 'undefined' && isNative(Promise)) {
+  const p = Promise.resolve()
+  timerFunc = () => {
+    p.then(flushCallbacks)
+    if (isIOS) setTimeout(noop)
+  }
+  isUsingMicroTask = true
+} else if (!isIE && typeof MutationObserver !== 'undefined' && (
+  isNative(MutationObserver) ||
+  // PhantomJS and iOS 7.x
+  MutationObserver.toString() === '[object MutationObserverConstructor]'
+)) {
+  // Use MutationObserver where native Promise is not available,
+  // e.g. PhantomJS, iOS7, Android 4.4
+  // (#6466 MutationObserver is unreliable in IE11)
+  let counter = 1
+  const observer = new MutationObserver(flushCallbacks)
+  const textNode = document.createTextNode(String(counter))
+  observer.observe(textNode, {
+    characterData: true
+  })
+  timerFunc = () => {
+    counter = (counter + 1) % 2
+    textNode.data = String(counter)
+  }
+  isUsingMicroTask = true
+} else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
+  // Fallback to setImmediate.
+  // Techinically it leverages the (macro) task queue,
+  // but it is still a better choice than setTimeout.
+  timerFunc = () => {
+    setImmediate(flushCallbacks)
+  }
+} else {
+  // Fallback to setTimeout.
+  timerFunc = () => {
+    setTimeout(flushCallbacks, 0)
+  }
+}
+
+export function nextTick (cb?: Function, ctx?: Object) {
+  let _resolve
+  callbacks.push(() => {
+    if (cb) {
+      try {
+        cb.call(ctx)
+      } catch (e) {
+        handleError(e, ctx, 'nextTick')
+      }
+    } else if (_resolve) {
+      _resolve(ctx)
+    }
+  })
+  if (!pending) {
+    pending = true
+    timerFunc()
+  }
+  // $flow-disable-line
+  if (!cb && typeof Promise !== 'undefined') {
+    return new Promise(resolve => {
+      _resolve = resolve
+    })
+  }
+}
+```
+
+
+> 1. nextTick 一定可以获取到最新的视图吗？
+
+```js
+const count = ref(1)
+
+nextTick(() => {
+  console.log(document.getElementById('counter').innerHTML) // ？
+})
+
+count.value = 2
+```
+> 2. 数据改变，会触发当前的 watcher 去更新视图。多次改变时, vue会进行去重，即保证同一个 watcher 只会被加入队列一次。
+
+> 3. 如果用户多次调用了 nextTick 方法，nextTick 会合并
+
 
 
 ### 5. diff 算法
