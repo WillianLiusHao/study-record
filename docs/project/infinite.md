@@ -314,9 +314,3 @@ A：传统的`mutirepo`是多项目多仓库，而`monorepo`是多项目单仓�
 - svg-icon 组件
   
   - use 标签
-
-## cms
-
-1. cli
-2. 丰富组件
-3. 路由自动生成（vite插件）
