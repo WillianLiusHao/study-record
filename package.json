@@ -19,8 +19,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.1",
     "standard-version": "^9.5.0",
-    "vuepress": "^1.9.8",
-    "vuepress-plugin-auto-sidebar": "^2.3.2"
+    "vuepress": "^1.9.8"
   },
   "config": {
     "commitizen": {
