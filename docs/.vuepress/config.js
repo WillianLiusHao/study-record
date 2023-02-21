@@ -40,9 +40,8 @@ module.exports = {
   themeConfig: {
     nav: [{ text: "GitHub", link: "https://github.com/WillianLiusHao" }],
     sidebar,
-    // displayAllHeaders: true,
-    // activeHeaderLinks: false,
   },
+  plugins: ['@vuepress/medium-zoom'],
   dest: path.resolve(__dirname, "../", "../", "dist"),
   base: "/study-record/",
   evergreen: true
