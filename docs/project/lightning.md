@@ -3,11 +3,57 @@
 
 ## 1. 架构设计
 
-### 平台项目
+### 多页应用
 
-### 编辑项目
+系统采用 `multi-page` 模式
 
-打包成库
+- 其中平台及编辑页面，编辑的控制台是一个`应用A`
+- 用户的模板是一个只关注活动页的`次应用B`
+
+在 `A` 的编辑工作台中，通过 `iframe` 的方式加载 `B`
+
+```js
+// id 是活动唯一id，template 是模板的名称
+<iframe
+  ref="iframe"
+  frameborder="0"
+  :src="`/subpage/?id=${$route.params.id}&template=${$route.query.template}`"
+></iframe>
+```
+
+### 工作原理
+
+1. 进入编辑页
+
+- 调用接口获取模板配置 `template_config`
+- 合并活动配置和模板配置
+  - 以 `id` 作为 `key`，
+
+
+### 数据通讯
+
+- `A` 应用的编辑工作台 读取 `setting 配置`
+
+```js
+this.activeExperiment = this.experiments[0]
+```
+
+### 渲染方式
+
+
+
+### 作业流程
+
+**模板发布**
+
+开发人员，在本地通过命令发布，把本地开发好的模板及相关配置发布到线上
+
+**活动发布**
+
+> 线上活动读取了模板文件和配置后，合并活动配置，渲染到编辑工作台
+
+然后在工作台可视化的点击按钮发布
+
 
 
 ## 2. 编辑器
@@ -16,7 +62,30 @@
 
 ## 4. 脚本命令
 
+### serve
+
+> 本地启动模板  
+> yarn serve [模版名，多个空格隔开]
+
+**1. 根据模板名生成导出文件**
+
+`fs.writeFileSync` 生成的导出文件如下
+```js
+/* /src/template/index.js */
+export const zhihao_339_38_20220124 = require('@/template/zhihao_339_38_20220124')
+export const zhihao_339_38_20220124_configJson = require('@/template/zhihao_339_38_20220124/config.json')
+```
+
+**2. 运行项目**
+
+`yarn start` = `vue-cli-service serve`
+
+这里是启动了2个项目，主应用和
+
 ### template
+
+> 打包开发模板，并发布生产  
+> yarn template [模版名]
 
 **1.前置基本配置处理**
 
@@ -83,7 +152,7 @@ const renameAssets = (dir, template) => {
 const cdnRes = await uploadAssets(getFiles(dir), template)
 ```
 
-**4.生成html文件**
+**4.！！！生成html文件**
 ```js
 await renderHtml(dir, cdnRes, template)
 
@@ -93,6 +162,7 @@ const renderHtml = async (dir, cdn, template) => {
     flag: 'r+',
     encoding: 'utf8'
   })
+  // 模板内的 js 和 css 替换成 cdn 资源
   const reg = new RegExp(`/${template}.[0-9a-z]*.(css|js)$`, 'gi')
   ;['css', 'js'].forEach(x => {
     data = data.replace(
@@ -100,14 +170,19 @@ const renderHtml = async (dir, cdn, template) => {
       cdn.filter(c => c.includes(x) && (!c.includes('umd.min')) && c.match(reg))
     )
   })
-
+  // 模板中的变量替换
+  // 1. {{ template }} => 对应模板名称（组件名称）
+  // 2. {{ timestamp }} => 当前时间
   data = data.replace(/{{ template }}/gi, template).replace(/{{ timestamp }}/gi, dayjs().format('YYYYMMDDHHmmssSSS '))
+  // 写入文件 /template/[模板名]/index.prod.html
+  // 该文件已经 替换了 css/js，引入了模板组件
   fs.writeFileSync(join(dir, 'index.prod.html'), data, {
     flag: 'w+',
     encoding: 'utf8'
   })
   const secretKey =
     'hiWcOTz^#XsppKCKRyf6n*x8*U&I1Wg1p1CLa#9V8SD@dSTD#2tWukl1WZ!QOG9l'
+  // 读取开发模板的配置，构建接口参数
   const config = require(join(
     __dirname,
     `../../src/template/${template}/config.json`
