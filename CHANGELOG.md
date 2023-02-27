@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.18](https://github.com/WillianLiusHao/study-record/compare/v1.17.17...v1.17.18) (2023-02-27)
+
 ### [1.17.17](https://github.com/WillianLiusHao/study-record/compare/v1.17.16...v1.17.17) (2023-02-27)
 
 ### [1.17.16](https://github.com/WillianLiusHao/study-record/compare/v1.17.15...v1.17.16) (2023-02-26)
