@@ -1,16 +1,16 @@
 
 # lightning
 
-## 1. 架构设计
+## 1. 工程架构设计
 
 ### 多页应用
 
 系统采用 `multi-page` 模式
 
-- 其中平台及编辑页面，编辑的控制台是一个`应用A`
-- 用户的模板是一个只关注活动页的`次应用B`
+  - 其中平台及编辑页面，编辑的控制台是一个`应用A`
+  - 用户的模板是一个只关注活动页的`次应用B`
 
-在 `A` 的编辑工作台中，通过 `iframe` 的方式加载 `B`
+在 `A` 的编辑工作台中，通过 `iframe` 的方式加载 `B`，并传入相关参数
 
 ```js
 // id 是活动唯一id，template 是模板的名称
@@ -21,22 +21,120 @@
 ></iframe>
 ```
 
-### 工作原理
+### 工作原理（重点）
 
 1. 进入编辑页
+    - **beforeRouteEnter**  
+        调用接口获取模板配置 `template_config`
+        1. 合并活动配置和模板配置,存到 vuex
+            ```js
+              store.dispatch('recordActivity', utils.cloneDeep({
+                [to.params.id]: [
+                  { 
+                    _id: to.params.id,
+                    name: '主实例',
+                    // 活动配置合并模版配置
+                    config: utils.merge({}, config, handleConfig(res.data.bean.config)),
+                    version_num: res.data.bean.version_num
+                  }
+                ]
+              }))
+            ```
+        2. next(vm)
+            - 把活动相关的字段(`活动名，活动id，企业id，项目id`)等 挂到 `vm.form` 上
+            - 把模板配置 挂到 `vm.template` 上
 
-- 调用接口获取模板配置 `template_config`
-- 合并活动配置和模板配置
-  - 以 `id` 作为 `key`，
+    - **created**
+      - 如果是本地环境，会直接获取本地的模板配置，作为主实例配置
 
+    - **mounted**
+      - 暴露编辑器对象到全局：`window.$editor = this`
+    
+2. 进入活动页
+    - created  
+        获取 query 参数，主要是 模板名
+    - mounted
+      ```js
+        mounted() {
+          window.Vue = Vue
+          // 编辑器子应用对象到全局
+          window.$subpage = this
+          // 获取父应用
+          this.$editor = window.parent.$editor
+          // 重点：调用(父)平台应用的加载方法，进而加载活动
+          this.$editor.load()
+          // 工具条，重要的编辑器组件
+          const $toolbar = this.$el.querySelector('.mouse-catcher .toolbar')
+          this.toolbar = {
+            width: this.getSize($toolbar, 'width'),
+            height: this.getSize($toolbar, 'height')
+          }
+        }
+      ```
 
-### 数据通讯
-
-- `A` 应用的编辑工作台 读取 `setting 配置`
-
+接下来我们看下 平台应用的 `load` 方法
 ```js
-this.activeExperiment = this.experiments[0]
+load() {
+  // 调用iframe里的模版对象的渲染方法 renderTemplate
+  // 对模板上的 content (即打包发布的html) 进行处理
+  this.$subpage = this.$refs.iframe.contentWindow.$subpage
+  this.$subpage.renderTemplate(this.template.content).then(() => {
+    // 把企业ID和活动id 挂载到 子应用的 根实例上
+    this.$subpage.$root.activityId = this.form.test_activity_id
+    this.$subpage.$root.companyId = this.form.test_company_id
+    // 第一个实例默认为当前实例
+    this.activeExperiment = this.experiments[0]
+    this.timestamp = Date.now()
+    this.$_loading.close()
+  })
+  this.$root.$on('edit', (key, value) => {
+    this.setting[key] = utils.merge(utils.cloneDeep(this.setting[key]), value)
+  })
+}
 ```
+
+继续跳到子应用看 `renderTemplate` 方法
+// window[template] ???
+```js
+async renderTemplate(content) {
+  const { template } = this.query
+  if (process.env.NODE_ENV !== 'development') {
+    await utils.renderTemplate(content)
+    // window[template] ???
+    Vue.component(template, window[template])
+  } else {
+    // 开发环境，则直接读取 src/template/index 内容，并将 模板实例 作为组件注册到全局
+    const activity = await import(`@/template`)
+    await Object.keys(activity).forEach(name => {
+      name === template && Vue.component(name, activity[name].default)
+    })
+  }
+  this.template = template
+}
+```
+
+utils.renderTemplate(content)
+
+
+子应用页面非常简单
+```html
+<template>
+  <section class="subpage">
+    <!-- setting 是 平台上通过监听 setting 配置，一旦变化，就传进来活动中 -->
+    <!-- template 是 全局注册的组件 -->
+    <component ref="template" v-if="setting && template" :is="template" v-model="setting"></component>
+    <mouse-catcher v-model="catcher"></mouse-catcher>
+    <callback-preview v-model="setting" ref="callbackPreview"></callback-preview>
+  </section>
+</template>
+```
+
+至此，活动页面就渲染完成
+
+
+### 数据通讯（重点）
+
+
 
 ### 渲染方式
 
@@ -44,190 +142,201 @@ this.activeExperiment = this.experiments[0]
 
 ### 作业流程
 
-**模板发布**
+- 模板发布  
+    开发人员，在本地通过命令发布，把本地开发好的模板及相关配置发布到线上
 
-开发人员，在本地通过命令发布，把本地开发好的模板及相关配置发布到线上
-
-**活动发布**
-
-> 线上活动读取了模板文件和配置后，合并活动配置，渲染到编辑工作台
-
-然后在工作台可视化的点击按钮发布
+- 活动发布  
+    **线上活动读取了模板文件和配置后，合并活动配置，渲染到编辑工作台**，然后在工作台可视化的点击按钮发布
 
 
 
-## 2. 编辑器
+## 2. 编辑器组件、编辑组件、业务组件
 
-## 3. 编辑组件、业务组件
-
-## 4. 脚本命令
+## 3. 脚本命令
 
 ### serve
 
 > 本地启动模板  
 > yarn serve [模版名，多个空格隔开]
 
-**1. 根据模板名生成导出文件**
+1. **根据模板名生成导出文件**
 
-`fs.writeFileSync` 生成的导出文件如下
-```js
-/* /src/template/index.js */
-export const zhihao_339_38_20220124 = require('@/template/zhihao_339_38_20220124')
-export const zhihao_339_38_20220124_configJson = require('@/template/zhihao_339_38_20220124/config.json')
-```
+    `fs.writeFileSync` 生成的导出文件如下
+    ```js
+    /* /src/template/index.js */
+    export const zhihao_339_38_20220124 = require('@/template/zhihao_339_38_20220124')
+    export const zhihao_339_38_20220124_configJson = require('@/template/zhihao_339_38_20220124/config.json')
+    ```
 
-**2. 运行项目**
+2. **运行项目**
 
-`yarn start` = `vue-cli-service serve`
+    实则是启动了2个项目，主应用和次应用
 
-这里是启动了2个项目，主应用和
+    `yarn start` = `vue-cli-service serve`
 
 ### template
 
 > 打包开发模板，并发布生产  
 > yarn template [模版名]
 
-**1.前置基本配置处理**
+1. **前置基本配置处理**
+    - **是否有用户信息**  
+      读取根目录下的 `env.json` 文件，没有的话会走 `yarn env` 命令，后面会讲到
+    - **根据模板名称读取打包模板路径**  
+      匹配多个模板时，会提供命令行交互选择
+    - **命令行参数判断发布正式/测试**  
+      prod 参数
 
-- **是否有用户信息**  
-  读取根目录下的 `env.json` 文件，没有的话会走 `yarn env` 命令，后面会讲到
-- **根据模板名称读取打包模板路径**  
-  匹配多个模板时，会提供命令行交互选择
-- **命令行参数判断发布正式/测试**  
-  prod 参数
+2. **开始打包**
 
-**2.开始打包**
+    使用 vue-cli 自带的打包功能，根据`页面开发模板`打包，**将模板页面打包成一个库 `library`**
 
-使用 vue-cli 自带的打包功能，根据`页面开发模板`打包，**将模板页面打包成一个库 `library`**
+    ```js
+    exec(`yarn build --dest template/${template} --target lib
+      --name ${template} src/template/${template}/index.vue`
+    )
+    ```
 
-```js
-exec(`yarn build --dest template/${template} --target lib
-  --name ${template} src/template/${template}/index.vue`
-)
-```
-
-打包后的 `文件夹` 和 `html` 如下：
+    打包后的 `文件夹` 和 `html` 如下：
 
 ![](../../assets/vuecli-build-dist.png)
 
 
 ![](../../assets/template-build-html.png)
 
-**3.资源重命名、资源上传**
+3. **资源重命名、资源上传**
 
-```js
-/**
- * 文件重命名
- * @params dir 打包后的文件夹
- * @params template 模板名
- */
-const renameAssets = (dir, template) => {
-  fs.readdirSync(dir)
-    .filter(name => name.includes('.'))
-    .forEach(name => {
-      const oldPath = `${dir}/${name}`
-      console.log('oldPath', oldPath)
-      // 只获取umd规范文件（可直接给浏览器或AMD loader使用的 UMD 包）
-      // 具体规则：umd.min => 时间戳
-      if (name.includes('umd.min.js') || name.includes('css')) {
-        fs.renameSync(
-          oldPath,
-          `${oldPath
-            .replace(extname(oldPath), '')
-            .replace('.umd.min', '')}.${generate(
-            `${template.replace(/_/gi, '')}${dayjs().format('YYYYMMDD')}`,
-            8
-          )}.${name.includes('css') ? 'css' : 'js'}`
+    ```js
+    /**
+     * 文件重命名
+    * @params dir 打包后的文件夹
+    * @params template 模板名
+    */
+    const renameAssets = (dir, template) => {
+      fs.readdirSync(dir)
+        .filter(name => name.includes('.'))
+        .forEach(name => {
+          const oldPath = `${dir}/${name}`
+          console.log('oldPath', oldPath)
+          // 只获取umd规范文件（可直接给浏览器或AMD loader使用的 UMD 包）
+          // 具体规则：umd.min => 时间戳
+          if (name.includes('umd.min.js') || name.includes('css')) {
+            fs.renameSync(
+              oldPath,
+              `${oldPath
+                .replace(extname(oldPath), '')
+                .replace('.umd.min', '')}.${generate(
+                `${template.replace(/_/gi, '')}${dayjs().format('YYYYMMDD')}`,
+                8
+              )}.${name.includes('css') ? 'css' : 'js'}`
+            )
+          } else if (!name.includes('umd.min')) {
+            // 非 umd 文件全部删掉
+            fs.unlinkSync(oldPath)
+          }
+        })
+    }
+    ```
+    ```js
+    // 资源上传：uploadAssets
+    // 调用接口将资源上传到公司的cdn，返回静态资源地址集合
+    const cdnRes = await uploadAssets(getFiles(dir), template)
+    ```
+
+4. **生成html文件！！！**
+
+    **该步骤主要有如下功能**   
+    1. 把默认 html 模板中的 css 和 js 预留位替换成 构建且上传的 cdn资源
+    2. 把 template 替换成构建的模板名（即当前页面使用的组件）
+    3. 生成 html 文件到打包模板目录下
+    4. 发布上传
+        - 模板名称 `name`
+        - 打包后的模板 `content`
+        - 模板配置项 `setting`
+
+    ```js
+    await renderHtml(dir, cdnRes, template)
+
+    const renderHtml = async (dir, cdn, template) => {
+      // 基于统一的 template 模板文件进行
+      let data = fs.readFileSync(join(dir, `../../script/template.html`), {
+        flag: 'r+',
+        encoding: 'utf8'
+      })
+      // 模板内的 js 和 css 替换成 cdn 资源
+      const reg = new RegExp(`/${template}.[0-9a-z]*.(css|js)$`, 'gi')
+      ;['css', 'js'].forEach(x => {
+        data = data.replace(
+          new RegExp(`{{ ${x} }}`, 'gi'),
+          cdn.filter(c => c.includes(x) && (!c.includes('umd.min')) && c.match(reg))
         )
-      } else if (!name.includes('umd.min')) {
-        // 非 umd 文件全部删掉
-        fs.unlinkSync(oldPath)
+      })
+      // 模板中的变量替换
+      // 1. {{ template }} => 对应模板名称（组件名称）
+      // 2. {{ timestamp }} => 当前时间
+      data = data
+        .replace(/{{ template }}/gi, template)
+        .replace(/{{ timestamp }}/gi, dayjs().format('YYYYMMDDHHmmssSSS '))
+      // 写入文件 /template/[模板名]/index.prod.html
+      // 该文件已经 替换了 css/js，引入了模板组件
+      fs.writeFileSync(join(dir, 'index.prod.html'), data, {
+        flag: 'w+',
+        encoding: 'utf8'
+      })
+      const secretKey =
+        'hiWcOTz^#XsppKCKRyf6n*x8*U&I1Wg1p1CLa#9V8SD@dSTD#2tWukl1WZ!QOG9l'
+      // 读取开发模板的配置，构建接口参数
+      const config = require(join(
+        __dirname,
+        `../../src/template/${template}/config.json`
+      ))
+      delete config.style
+      config.template || (config.template = {})
+      config.other || (config.other = [])
+      config.hidden || (config.hidden = [])
+      const params = {
+        name: template,
+        content: data,
+        config,
+        email: require(envPath).EMAIL,
+        responseTime: +new Date()
+          .getTime()
+          .toString()
+          .substr(0, 10)
       }
-    })
-}
-```
-```js
-// 资源上传：uploadAssets
-// 调用接口将资源上传到公司的cdn，返回静态资源地址集合
-const cdnRes = await uploadAssets(getFiles(dir), template)
-```
+      params.sign = crypto
+        .createHash('sha1')
+        .update(
+          `${params.name}${params.email}${params.responseTime}${secretKey}`,
+          'utf-8'
+        )
+        .digest('hex')
 
-**4.！！！生成html文件**
-```js
-await renderHtml(dir, cdnRes, template)
+      // 发布项目
+      const publishUrl = prod ? 'https://adms.vrm.cn' : 'http://192.168.0.114'
+      const resNew = await axios.post(
+        `${publishUrl}/api/template/package`,
+        params
+      )
+      console.log(
+        resNew.data.success
+          ? `${publishUrl} 提交成功 ${template}`.green
+          : `${publishUrl} 提交失败 ${template}：${resNew.data.message}`.red
+      )
+    }
 
-const renderHtml = async (dir, cdn, template) => {
-  // 基于统一的 template 模板文件进行
-  let data = fs.readFileSync(join(dir, `../../script/template.html`), {
-    flag: 'r+',
-    encoding: 'utf8'
-  })
-  // 模板内的 js 和 css 替换成 cdn 资源
-  const reg = new RegExp(`/${template}.[0-9a-z]*.(css|js)$`, 'gi')
-  ;['css', 'js'].forEach(x => {
-    data = data.replace(
-      new RegExp(`{{ ${x} }}`, 'gi'),
-      cdn.filter(c => c.includes(x) && (!c.includes('umd.min')) && c.match(reg))
-    )
-  })
-  // 模板中的变量替换
-  // 1. {{ template }} => 对应模板名称（组件名称）
-  // 2. {{ timestamp }} => 当前时间
-  data = data.replace(/{{ template }}/gi, template).replace(/{{ timestamp }}/gi, dayjs().format('YYYYMMDDHHmmssSSS '))
-  // 写入文件 /template/[模板名]/index.prod.html
-  // 该文件已经 替换了 css/js，引入了模板组件
-  fs.writeFileSync(join(dir, 'index.prod.html'), data, {
-    flag: 'w+',
-    encoding: 'utf8'
-  })
-  const secretKey =
-    'hiWcOTz^#XsppKCKRyf6n*x8*U&I1Wg1p1CLa#9V8SD@dSTD#2tWukl1WZ!QOG9l'
-  // 读取开发模板的配置，构建接口参数
-  const config = require(join(
-    __dirname,
-    `../../src/template/${template}/config.json`
-  ))
-  delete config.style
-  config.template || (config.template = {})
-  config.other || (config.other = [])
-  config.hidden || (config.hidden = [])
-  const params = {
-    name: template,
-    content: data,
-    config,
-    email: require(envPath).EMAIL,
-    responseTime: +new Date()
-      .getTime()
-      .toString()
-      .substr(0, 10)
-  }
-  params.sign = crypto
-    .createHash('sha1')
-    .update(
-      `${params.name}${params.email}${params.responseTime}${secretKey}`,
-      'utf-8'
-    )
-    .digest('hex')
+    ```
 
-  // 发布项目
-  const publishUrl = prod ? 'https://adms.vrm.cn' : 'http://192.168.0.114'
-  const resNew = await axios.post(
-    `${publishUrl}/api/template/package`,
-    params
-  )
-  console.log(
-    resNew.data.success
-      ? `${publishUrl} 提交成功 ${template}`.green
-      : `${publishUrl} 提交失败 ${template}：${resNew.data.message}`.red
-  )
-}
+    生成后的 html 如下
 
-```
+    ![](../../assets/template-prod-html.png)
 
 
-## 5. sdk
+## 4. sdk
 
-## 6. git flow 工作流
+[立刻前往](./jssdk-monitor.md)
+
+## 5. git flow 工作流
 
 ```json
 "husky": {
@@ -253,14 +362,15 @@ const renderHtml = async (dir, cdn, template) => {
 `yarn commit`：
 
 
-## 7. cms 后台模板
+## 6. cms 后台模板
 
 ### 插件
 
-**路由自动生成**
+- **路由自动生成**
 
-**构建资源自动上传cdn**
+- **构建资源自动上传cdn**
 
 ### 组件
 
-**ctable**
+- **ctable**
+
