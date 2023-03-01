@@ -10,11 +10,19 @@
 
 ## 插件
 
+- 插件会对解析当前项目的配置
+  - 默认会设置 `路径别名`，把插件提供的组件 给项目使用
+  - 如果开启了 cdn, 会把项目的 `publicPath` 修改为 cdn 地址
+
+
 - **路由自动生成**
 `Router.webpack.plugin`
 
 - **构建资源自动上传cdn**
 `Cdn.webpack.plugin`
+
+- 通过 webpack plugin 的 `done` 钩子
+- 使用异步任务队列，将资源一个个的上传
 
 
 **核心代码**
@@ -40,6 +48,7 @@ module.exports = (api, projectOptions) => {
     if (process.env.NODE_ENV === 'production') {
       config.devtool('cheap-module-source-map')
       if (enabledCdn) {
+        // 修改资源的 publicPath
         options.cdn.origin += `/${options.code}/`
         projectOptions.publicPath = options.cdn.origin
         config.output.publicPath(options.cdn.origin)

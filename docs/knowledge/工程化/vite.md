@@ -1,5 +1,13 @@
 # vite
 
+1. 请简述Vite的工作原理
+2. Vite的优点是什么？
+3. 请简述Vite的HMR实现原理
+4. 如何实现Vite的插件开发？
+5. 如何使用Vite实现多页应用？
+
+---
+
 ![](../../../assets/prebuild.png)
 
 
