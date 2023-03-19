@@ -28,6 +28,7 @@
     }
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "markdown-it-disable-url-encode": "^1.0.1"
   }
 }
