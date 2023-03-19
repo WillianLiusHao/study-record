@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/WillianLiusHao/study-record/compare/v1.17.26...v1.18.0) (2023-03-19)
+
+
+### Features
+
+* tls ssl ([b12a51a](https://github.com/WillianLiusHao/study-record/commit/b12a51ac8bbe220daaa457da81a0e926a566d339))
+
 ### [1.17.26](https://github.com/WillianLiusHao/study-record/compare/v1.17.25...v1.17.26) (2023-03-17)
 
 ### [1.17.25](https://github.com/WillianLiusHao/study-record/compare/v1.17.24...v1.17.25) (2023-03-16)
