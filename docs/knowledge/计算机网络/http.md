@@ -26,64 +26,59 @@
 
 ## 2. http1.0、http 1.1、 http2.0
 
-**HTTP/1.1 相较 HTTP/1.0 的改进和优化：**  
+- **HTTP/1.1 相较 HTTP/1.0 的改进和优化：**  
+    - 长连接：`connection: keep-alive`
+    - HTTP 管道化
+    - 分块编码传输
+    - 新增 Host 头处理
+    - 更多缓存处理
+    - 新增更多状态码
+    - 断点续传、并行下载
 
-- 长连接：`connection: keep-alive`
-- HTTP 管道化
-- 分块编码传输
-- 新增 Host 头处理
-- 更多缓存处理
-- 新增更多状态码
-- 断点续传、并行下载
+- **HTTP/1.1 的缺点：**
+  - 队头阻塞（Head-of-line blocking）
+  - 头部冗余
+  - TCP 连接数限制
 
-**HTTP/1.1 的缺点：**
-
-- 队头阻塞（Head-of-line blocking）
-- 头部冗余
-- TCP 连接数限制
-
-**HTTP/2 的优点：**
-
-- 二进制分帧
-- 多路复用
-- 头部压缩
-- 服务端推送
+- **HTTP/2 的优点：**
+  - 二进制分帧
+  - 多路复用
+  - 头部压缩
+  - 服务端推送
 
 ### http 1.1
 
-- **持久连接**
+- **持久连接**  
+  每次建立 TCP/IP 连接，可进行多次 http 请求，减少频繁建立连接的开销，`请求头 Connection: keep-alive`
 
-每次建立 TCP/IP 连接，可进行多次 http 请求，减少频繁建立连接的开销，`请求头 Connection: keep-alive`
+- **HTTP 管道化** 
+  HTTP 管道化是指将多个 HTTP 请求同时发送给服务器的技术，但是`响应必须按照请求发出的顺序依次返回`。
 
-- **HTTP 管道化**
+- **分块编码传输**  
+  在 HTTP/1.1 协议里，允许在响应头中指定 `Transfer-Encoding: chunked` 标识当前为分块编码传输，可以将内容实体分装成一个个块进行传输。
 
-HTTP 管道化是指将多个 HTTP 请求同时发送给服务器的技术，但是`响应必须按照请求发出的顺序依次返回`。
+- **缓存优化**  
+  加入 ETag/If-Unmodified-Since，If-Match/If-None-Match 等字段
 
-- **分块编码传输**
+- **断点续传、并行下载**  
+  新增请求头字段 Range 和响应头字段 Content-Range，可以标记数据片段。 状态码`206`
 
-在 HTTP/1.1 协议里，允许在响应头中指定 `Transfer-Encoding: chunked` 标识当前为分块编码传输，可以将内容实体分装成一个个块进行传输。
-
-- **缓存优化**
-
-加入 ETag/If-Unmodified-Since，If-Match/If-None-Match 等字段
-
-- **断电续传、并行下载**
-
-新增请求头字段 Range 和响应头字段 Content-Range，可以标记数据片段。 状态码`206`
-```sql
-Range: bytes=start-end
-```  
+  ```sql
+  Range: bytes=start-end
+  ```  
 
 
 ### http 2.0
 
-**二进制分帧**
+- **二进制分帧**  
 
 
-**多路复用（或连接共享）**
+- **多路复用**  
 
 
-**头部压缩：减小 header 大小，提高传输效率**
+- **头部压缩**  
+  减小 header 大小，提高传输效率
 
 
-**服务器推送：服务器除了对最初请求响应外，可额外主动向客户端推送资源**
+- **服务器推送**  
+  服务器除了对最初请求响应外，可额外主动向客户端推送资源
