@@ -50,7 +50,7 @@
 
 ### 浙江大华
 
-- 一面
+- 一	
 	1. 自我介绍
 	2. 盒模型
 	3. 垂直居中的方法
@@ -63,12 +63,13 @@
 	10. promise.all 是怎么用
 	11. js事件循环
 	12. 说一下 TCP 握手
-	13. vue 组件通讯
-	14. vue diff 算法
-	15. vue2 缺点
-	16. vue2/vue3 对比
-	17. nodejs（...没怎么接触，只用常见api写过脚本）
-	18. jspdf,html2canvas 场景问题
+	14. 跨域
+	15. vue 组件通讯
+	16. vue diff 算法
+	17. vue2 缺点
+	18. vue2/vue3 对比
+	19. nodejs（...没怎么接触，只用常见api写过脚本）
+	20. jspdf,html2canvas 场景问题
 
 - 总结：
 	- 盒模型说的不够清晰

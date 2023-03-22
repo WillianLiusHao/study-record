@@ -16,3 +16,5 @@ const client_secret = client.computeSecret(serverKey)
 const server_secret = server.computeSecret(clientKey)
 
 console.log(client_secret.toString('hex'), server_secret.toString('hex'))
+
+

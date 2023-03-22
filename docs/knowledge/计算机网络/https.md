@@ -3,12 +3,22 @@
 ## 1. HTTPS 是什么
 
 ### 1.1 概念
+
 HTTPS 是在 HTTP 的基础上，利用 `SSL/TLS` 加密数据包。
+
+HTTP 的风险和对策
+
+| 风险 | 对策 | 方法 |
+| ---  | --- | --- |
+| 信息窃听 | 信息加密 | 对称加密 AES |
+| 密钥传递 | 密钥协商 | 非对称加密 (RSA和ECC) |
+| 信息篡改 | 完整性校验 | 散列算法（md5和SHA） |
+| 身份冒充 | CA权威认证 | 散列算法（md5和SHA）+ RSA 签名 |
 
 ### 1.2 SSL / TLS （王老吉和加多宝）
 
 ```js
-https     =  http  +  TLS/SSL 
+https     =  http  +  TLS/SSL
 --------     风险      目的
   http  |   信息窃听  信息加密
 --------    信息篡改  数据完整性
@@ -251,7 +261,7 @@ ECDHE 算法是在 DHE 算法的基础上利用了 `ECC 椭圆曲线`特性，�
 |    ---      |           ---           |           ---            |
 |    第一次    |      Client Hello       |       Client Hello       |
 |    第二次    | Server Hello<br>Server Certificate<br>Server Hello Done | Server Hello<br>Server Certificate<br>**Server Key Exchange**<br>Server Hello Done|
-|    第三次    | Change Cipher Key Exchange<br>Change Cipher Spec<br>Encrypted Handshake Message（Finishd）| **Client Key Exchange**<br>Change Cipher Spec<br>Encrypted Handshake Message（Finishd） |
+|    第三次    | Client Key Exchange<br>Change Cipher Spec<br>Encrypted Handshake Message（Finishd）| Client Key Exchange<br>Change Cipher Spec<br>Encrypted Handshake Message（Finishd） |
 |    第四次    |Change Cipher Spec<br>Encrypted Handshake Message（Finishd） | Change Cipher Spec<br>Encrypted Handshake Message（Finishd）|
 
 - 总结
@@ -309,9 +319,9 @@ ECDHE 算法是在 DHE 算法的基础上利用了 `ECC 椭圆曲线`特性，�
 
 ### 3. 第三次握手
 
-- **Change Cipher Key Exchange**
+- **Client Key Exchange**
 
-  客户端验证完证书，可信则继续往下走。客户端生成新的 `随机数(pre-master)`,用服务器的 RSA 公钥进行加密，通过 **Change Cipher Key Exchange** 消息传给服务端
+  客户端验证完证书，可信则继续往下走。客户端生成新的 `随机数(pre-master)`,用服务器的 RSA 公钥进行加密，通过 **Client Key Exchange** 消息传给服务端
   
   ![](../../../assets/change-cipher-spec.png)
   
