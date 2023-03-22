@@ -1,4 +1,4 @@
-# HTTP
+# HTTPS
 
 ## 1. HTTPS 是什么
 
@@ -21,7 +21,7 @@ tls/ssl |   信息劫持  身份验证
 
 ## 2 加密
 
-SSL/TLS 三类算法
+SSL/TLS 三类算法作用
 
 - 非对称加密：身份验证，秘钥协商
 - 对称加密：信息加密
@@ -49,7 +49,7 @@ function decrypt(data, key, iv) {
 }
 ```
 
-### 2.2 非对称加密 RSQ
+### 2.2 非对称加密 RSA
 
 **公钥加密私钥解，私钥加密公钥解**
 
@@ -132,32 +132,60 @@ const isValid = verifyObj.verify(rsa.publicKey, sign, 'hex')
 
 ### 2.5 数字证书
 
-流程
-1. 服务器创建秘钥对，把公钥注册到`第三方数字认证机构（CA）`
-2. CA 用自己的私钥，把服务器公钥进行数字签名`生成数字证书`，并发送到服务器
-3. 服务器把 `数字证书`(**CA 数字签名** 和 **服务器公钥**) 发到客户端
-4. 客户端的 `浏览器/操作系统`，默认内置了 `CA 公钥`。使用公钥对 数字证书 进行验证
-5. 把数据用 `服务器公钥` 进行加密，而后发送到服务器
+- 目的
+  - 认证 **公钥持有者的身份**,防止第三方冒充
+- 内容
+  - 公钥
+  - 持有者信息
+  - 证书认证机构（CA）的信息
+  - 证书有效期
+  - ...
+
+**签发和验证流程**
+  ![](../../../assets/cert.png)
+
+  - **CA 签发证书**，如上图左边部分： 
+
+    - 首先 CA 会把持有者的公钥、用途、颁发者、有效时间等信息打成一个包，然后对这些信息进行 Hash 计算，得到一个 Hash 值
+
+    - 然后 CA 会使用自己的私钥将该 Hash 值加密，生成 `Certificate Signature`，也就是 CA 对证书做了签名
+
+    - 最后将 Certificate Signature 添加在文件证书上，形成数字证书
+
+  - 客户端 **校验服务端的数字证书** 的过程，如上图右边部分
+
+    - 首先客户端会使用同样的 Hash 算法获取该证书的 Hash 值 H1
+
+    - 通常浏览器和操作系统中集成了 CA 的公钥信息，浏览器收到证书后可以使用 CA 的公钥解密 Certificate Signature 内容，得到一个 Hash 值 H2
+
+    - 最后比较 H1 和 H2，如果值相同，则为可信赖的证书，否则则认为证书不可信
+
+**全流程及具体字段**  
+
+![](../../../assets/cert2.png)
 
 ### 2.6 算法
 
-**Diffie-Hellman 算法(三色相加算法)**
+**Diffie-Hellman 算法(DH算法)**
 
 - 特点：双方都不需要告知对方自己的秘钥情况下，协商一个公共的秘钥出来
 - 使用场景：协商密钥，计算对称加密的秘钥
 
 - 图解
+
 ![](../../../assets/Diffie-Hellman_Key_Exchange.svg)  
 
-- 算法数学原理
+- 算法数学原理(`离散对数`)
 ```JS
-// 假设 p=2, sec1=3, sec2=4, N=10
-let p=2, sec1=3, sec2=4, N=10;
-let A = Math.pow(p, sec1) % N // A用自己sec1 生成值
-let B = Math.pow(p, sec2) % N // B用自己sec2 生成值
+// 假设 p=2, a=3, b=4, N=10
+// a,b 是私钥，各自保存
+// 底数p，模N 是公开参数
+let p=2, a=3, b=4, N=10;
+let A = Math.pow(p, a) % N // 用 私钥a 生成 公钥A
+let B = Math.pow(p, b) % N // 用 私钥b 生成 公钥B
 
-let AcommonK = Math.pow(B ^ sec1) % N // A计算结果 commonKey = 6
-let BcommonK = Math.pow(A ^ sec2) % N // B计算结果 commonKey = 6
+let AcommonK = Math.pow(B ^ a) % N // 公钥B和私钥a计算公共密钥 commonKey = 6
+let BcommonK = Math.pow(A ^ b) % N // 公钥A和私钥b计算公共密钥 commonKey = 6
 ```
 
 - 代码实现
@@ -183,94 +211,131 @@ console.log(client_secret.toString('hex'), server_secret.toString('hex'))
 ```
 
 
+**ECDHE 算法**
+
+ECDHE 算法是在 DHE 算法的基础上利用了 `ECC 椭圆曲线`特性，可以用更少的计算量计算出公钥，以及最终的会话密钥。
+
+小红和小明使用 ECDHE 密钥交换算法的过程：
+
+- 双方事先确定好使用 `哪种椭圆曲线`，和曲线上的 `基点 G`，这两个参数都是公开的；
+- 双方各自随机生成一个随机数作为`私钥d`，并与 `基点 G` 相乘得到`公钥Q（Q = dG）`，此时小红的公私钥为 Q1 和 d1，小明的公私钥为 Q2 和 d2；
+- 双方交换各自的公钥，最后小红计算点（x1，y1） = d1Q2，小明计算点（x2，y2） = d2Q1，由于椭圆曲线上是可以满足乘法交换和结合律，所以 d1Q2 = d1d2G = d2d1G = d2Q1 ，因此双方的 x 坐标是一样的，所以它是共享密钥，也就是会话密钥。
+
+
+这个过程中，双方的私钥都是随机、临时生成的，都是不公开的，即使根据公开的信息（椭圆曲线、公钥、基点 G）也是很难计算出椭圆曲线上的离散对数（私钥）。
+
 
 ## 3. 密钥协商
+
+### 常见秘钥交换算法
+
+- RSA
+- **ECDHE(目前主流)**
 
 ![](../../../assets/myxs.png)
 
 
+## 4. [TLS 握手过程](https://mp.weixin.qq.com/s/U9SRLE7jZTB6lUZ6c8gTKg)
+
+### TLS-RSA 握手(反复阅读熟记)
+
+![](../../../assets/rsa-handshake.png)
+
+### TLS-ECDHE 握手  
+
+![](../../../assets/tls-handshake.png)
+
+## 5. TLS 握手过程详解
+
+| TLS 四次握手 |           RSA           |           ECDHE           |
+|    ---      |           ---           |           ---            |
+|    第一次    |      Client Hello       |       Client Hello       |
+|    第二次    | Server Hello<br>Server Certificate<br>Server Hello Done | Server Hello<br>Server Certificate<br>**Server Key Exchange**<br>Server Hello Done|
+|    第三次    | Change Cipher Key Exchange<br>Change Cipher Spec<br>Encrypted Handshake Message（Finishd）| **Client Key Exchange**<br>Change Cipher Spec<br>Encrypted Handshake Message（Finishd） |
+|    第四次    |Change Cipher Spec<br>Encrypted Handshake Message（Finishd） | Change Cipher Spec<br>Encrypted Handshake Message（Finishd）|
+
+- 总结
+  - RSA 密钥协商算法「不支持」前向保密，ECDHE 密钥协商算法「**支持**」**前向保密**；
+  - 使用了 RSA 密钥协商算法，TLS 完成**四次握手后，才能进行应用数据传输**，而对于 ECDHE 算法，客户端可以不用等服务端的最后一次 TLS 握手，就可以提前发出加密的 HTTP 数据，节省了一个消息的往返时间（这个是 RFC 文档规定的，具体原因文档没有说明，所以这点我也不太明白）；
+  - 使用 ECDHE， 在 TLS 第 **2 次握手中**，会出现服务器端发出的「**Server Key Exchange**」消息，而 RSA 握手过程没有该消息；
 
 
-## 4. 过程详解
+以下以 RSA 握手过程进行详细解读
 
-1. Client Hello
-```js
-TLSv1.2 Record Layer: Handshake Protocol: Client Hello
-  Content Type: Handshake (22)
-  Version: TLS 1.0 (0x0301)
-  Length: 512
-  Handshake Protocol: Client Hello
-    Handshake Type: Client Hello (1)
-    Length: 508
-    Version: TLS 1.2 (0x0303)
-    Random: acf15a314292b72307b5e6c3444b0e1438792f59fca64243c476c69cb9c2af2b
-    Session ID Length: 32
-    Session ID: 751f64e168c344d940cf2bf173965fd151d54f428e4668f1b547827274abe9fc
-    Cipher Suites Length: 32
-    Cipher Suites (16 suites) // 提供可选加密套件
-    Compression Methods Length: 1
-    Compression Methods (1 method)
-    Extensions Length: 403
-    Extension: Reserved (GREASE) (len=0)
-    Extension: server_name (len=22)
-    Extension: signed_certificate_timestamp (len=0)
-    Extension: session_ticket (len=192)
-    Extension: application_settings (len=5)
-    Extension: renegotiation_info (len=1)
-    Extension: psk_key_exchange_modes (len=2)
-    Extension: application_layer_protocol_negotiation (len=14)
-    Extension: signature_algorithms (len=18)
-    Extension: ec_point_formats (len=2)
-    Extension: key_share (len=43)
-    Extension: extended_master_secret (len=0)
-    Extension: supported_groups (len=10)
-    Extension: compress_certificate (len=3)
-    Extension: status_request (len=5)
-    Extension: supported_versions (len=7)
-    Extension: Reserved (GREASE) (len=1)
-    Extension: padding (len=6)
-    [JA3 Fullstring: 771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-18-35-17513-65281-45-16-13-11-51-23-10-27-5-43-21,29-23-24,0]
-    [JA3: 3619c9919b9b911b40e3252e7ef29bad]
-```
+### 1. 第一次握手 【**Client Hello**】
 
-2. Server Hello
-```js
-Frame 213: 2908 bytes on wire (23264 bits), 2908 bytes captured (23264 bits) on interface \Device\NPF_Loopback, id 0
-Null/Loopback
-Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
-Transmission Control Protocol, Src Port: 7890, Dst Port: 24082, Seq: 40, Ack: 744, Len: 2864
-Hypertext Transfer Protocol
-Transport Layer Security
-  TLSv1.2 Record Layer: Handshake Protocol: Server Hello
-    Content Type: Handshake (22)
-    Version: TLS 1.2 (0x0303)
-    Length: 74
-    Handshake Protocol: Server Hello
-      Handshake Type: Server Hello (2)
-      Length: 70
-      Version: TLS 1.2 (0x0303)
-      Random: 0fc210b6cf435b7e1d59ba2f301f3ef709919ebd275eb203276daa7bfee6db76
-      Session ID Length: 0
-      Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (0xc02f) // 加密套件
-      Compression Method: null (0)
-      Extensions Length: 30
-      Extension: server_name (len=0)
-      Extension: renegotiation_info (len=1)
-      Extension: ec_point_formats (len=4)
-      Extension: session_ticket (len=0)
-      Extension: application_layer_protocol_negotiation (len=5)
-      [JA3S Fullstring: 771,49199,0-65281-11-35-16]
-      [JA3S: b898351eb5e266aefd3723d466935494]
-```
+  ![](../../../assets/clienthello.png)
 
-3. Certificate
+  客户端打招呼，主要发送了 `TLS 版本号`、`支持的加密套件列表`、`客户端随机数（Client Random）`，该随机数最后会被服务端保留，这是 `生成对称加密秘钥` 的材料之一
 
-4. Server Key Exchange
+### 2. 第二次握手 【**Server Hello + Server Certificate + Server Hello Done**】
 
-5. Server Hello Done
+- **Server Hello**  
 
-6. Client Key Exchange
+  当服务端收到客户端的【Client Hello】消息后，会确认(ACK) TLS 版本号是否支持，和从密码套件列表中选择一个密码套件，以及生成随机数 `Server Random`
 
-7. Change Cipher Spec
+  接着，返回【**Server Hello**】消息，消息里面有服务器确认的 `TLS 版本号`，也给出了`随机数（Server Random）`，然后从客户端的密码套件列表选择了一个`合适的密码套件`
 
-8.  Encrypted Handshake Message
+  ![](../../../assets/serverhello.png)
+
+  可以看到，服务端选择的密码套件是 
+  ```js 
+  “Cipher Suite: TLS_RSA_WITH_AES_128_GCM_SHA256”
+  ```
+
+  套件基本格式：**「密钥交换算法 + 签名算法 + 对称加密算法 + 摘要算法」**
+
+  上述套件的意思是
+  - 由于 WITH 单词只有一个 RSA，则说明握手时密钥交换算法和签名算法都是使用 RSA
+  - 握手后的通信使用 AES 对称算法，密钥长度 128 位，分组模式是 GCM
+  - 摘要算法 SHA256 用于消息认证和产生随机数；
+
+- **Server Certificate**
+  
+  服务端为验证自己身份，发送 `Server Certificate` 消息给客户端，信息内包含证书
+
+  ![](../../../assets/certificate.png)
+
+- **Server Hello Done**
+
+  服务端告诉客户端，消息传递完毕，本次招呼完毕
+
+  ![](../../../assets/server-hello-done.png)
+
+> 二次握手中有几个关键事项，这里就不展开细讲了  
+> 1. 客户端证书验证（见[2.5 数字证书](#_2-5-数字证书)）
+> 2. 证书链
+
+
+### 3. 第三次握手
+
+- **Change Cipher Key Exchange**
+
+  客户端验证完证书，可信则继续往下走。客户端生成新的 `随机数(pre-master)`,用服务器的 RSA 公钥进行加密，通过 **Change Cipher Key Exchange** 消息传给服务端
+  
+  ![](../../../assets/change-cipher-spec.png)
+  
+  服务端用 RSA 私钥解密，也得到了 pre-master
+
+  至此，双方共享了3个随机数：
+    - Client Random
+    - Server Random
+    - pre-master
+
+  双方基于3个随机数，生成会话秘钥 **Master Secter（对称秘钥）**，用于后续的加密通讯
+
+- **Change Cipher Spec**
+
+  客户端通过 **Change Cipher Spec** 消息告诉服务端接下来开始切换加密协议，之后都使用对称加密进行发消息
+
+  ![](../../../assets/change-cipher-spec.png)
+
+- **Encrypted Handshake Message（Finishd）**
+
+  然后，客户端再发一个 **Encrypted Handshake Message（Finishd）** 消息，把之前所有发送的数据进行摘要，再用 `maste secret` 对称秘钥进行加密，让服务端做验证，验证加密通信是否可用及 TLS 握手信息是否被 篡改过
+
+  ![](../../../assets/encrypted-handshake-message.png)
+
+### 4. 第四次握手
+
+  也是进行 **Change Cipher Spec** 和 **Encrypted Handshake Message（Finishd）**，如果双方都验证加解密没问题，则握手正式完成
