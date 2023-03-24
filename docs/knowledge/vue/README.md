@@ -163,6 +163,11 @@ count.value = 2
 [patch源码](https://blog.csdn.net/u014125106/article/details/106178805/)
 
 1. **概念和目的：** Diff 算法是一种对比算法，通过对比新旧虚拟dom，精准快速的找出dom变化，提高更新效率。
+
+> 个人理解
+> diff算法的目的，就为了尽可能的多复用节点，减低dom操作。
+> 而diff算法实质，就是在寻求 旧vdom => 新vdom 的最优解算法
+
 2. **策略：**`同层比较`、`深度优先`、`O(n)`（其中同层比较将时间复杂度由`O(n^3)`降至`O(n)`）
 
     ![](../../../assets/diffOn.png)
@@ -324,8 +329,12 @@ count.value = 2
 
 - 性能优化
   - `响应式`：proxy 和 Reflect 替代 defineProperty
-  - `diff优化`：更新类型标记 **patchFlag**，对比流程使用**最长递增子序列**
-  - `编译优化`：函数缓存 **cacheHandlers**，静态节点提升 **hoistStatic**
+  - `diff优化`：对比流程使用**最长递增子序列**
+  - `编译优化`
+      - 更新类型标记 **patchFlag**
+      - 函数缓存 **cacheHandlers**
+      - 静态节点提升 **hoistStatic**
+      - 树结构打平 **[Block](https://cn.vuejs.org/guide/extras/rendering-mechanism.html#tree-flattening)**
 
 - 语法API
   - `composition API`
