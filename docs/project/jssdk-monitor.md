@@ -60,6 +60,8 @@
   改写浏览器内置的 `XMLHttpRequest` 和 `fetch`
 
 
+
+
 ### 2. 性能监控
 
 客观数据直接上报：`白屏` `首屏` `加载时间` `DNS/TCP/TTFB`  
@@ -67,7 +69,7 @@
 
 主要用到的都是性能指标 `Performance API`，符合 W3C 标准
 
-![](../../assets/performanceAPI.png)
+![](../../assets/performanceAPIV2.png)
 
 - **白屏时间**
     - **方案1：性能指标的 FP**  
@@ -96,11 +98,14 @@
 
     计算逻辑：开始前先记录一个初始时间，然后每次触发 requestAnimationFrame() 时，就将帧数加 1。过去一秒后用 `帧数/流逝的时间` 就能得到当前帧率。
 
----
-- [相关文章1](https://juejin.cn/post/7035647196510814221)  
-- [前端性能和错误监控](https://github.com/woai3c/Front-end-articles/blob/master/monitor.md)
-- [woai3c](https://github.com/woai3c/Front-end-articles/issues/26)
----
+![](../../assets/performance_data.png)
+
+- 参考文章
+  - [相关文章1](https://juejin.cn/post/7035647196510814221)  
+  - [前端性能和错误监控](https://github.com/woai3c/Front-end-articles/blob/master/monitor.md)
+  - [woai3c](https://github.com/woai3c/Front-end-articles/issues/26)
+
+
 
 ### 3. 行为监控
 
@@ -112,16 +117,16 @@
     - uv：生成用户的 uuid，存在 `session`，每次加载判断 `session` 有效性
     - ip 是`后端`通过用户 `ip` 做唯一标识
 
-- **停留时长**：页面`load`时记录时间A，`onBeforeunload`记录时间B，停留时长 = B - A
+- **停留时长**：页面`load`时记录时间A，**onBeforeunload** 记录时间B，停留时长 = B - A
 
 - **链接来源**：`document.referrer`
 
-- **自定义的埋点事件**
-
-    并非用户的所有时间都会进行收集上报，只有`埋了点的位置` 或 `手动触发了上报事件`，才会捕获并上报事件
-
-    通过归类一套`按组件来分层级`的树状事件代码，进行埋点
-
+- **事件上报（重点）**
+  - **自定义的埋点事件**：并非用户的所有事件都会进行收集上报，以下场景才会捕获并上报事件。
+      - `埋了点的位置`：通过归类一套 **按组件归类**的树状事件代码，进行埋点
+      - `手动触发了上报事件`：组件的特定生命周期/事件回调中，会固定执行上报
+  - 点击事件：通过 `data-la`  属性标记元素，上报时候只有绑了改值才会上报
+  
 - **热力图**
     服务端通过点击事件统计生成热区
 
@@ -160,13 +165,13 @@
 
 #### 2. 数据的上报策略（上报方式、上报时机）
 
-- 上报方式：sendBeacon + XMLHTTPRequest 降级上报
+- 上报方式：sendBeacon（首选）/ XMLHTTPRequest（次选） 降级上报
   1. **sendBeacon（首选，异步、保证数据的可靠，不影响页面性能）**
   2. XMLHttpRequest
   3. ~~img~~
 
 - 上报时机
-  1. 采用 `requestIdleCallback/setTimeout` 延时上报（requestIdleCallback 会在浏览器空闲时调用）
+  1. 采用 `requestIdleCallback（首选）/ setTimeout（次选）` 延时上报（requestIdleCallback 会在浏览器空闲时调用）
   2. 在页面关闭前 `beforeunload` 回调函数里上报
   ~~3. `缓存上报`数据，达到一定数量后再上报~~
 
@@ -174,10 +179,10 @@
 
   如果某一帧渲染时间不到16ms(以60fps算)，那此时这一帧有一定的空闲时间，这段空闲事件就可以执行 `requestIdleCallback`
 
-#### 3. 错误数据去重
+#### 3. 错误信息唯一ID的作用
 
 - 错误上报数据去重
-  1. 客户端基于错误的堆栈信息，生成错误的唯一ID，上报时去重
+  1. 客户端基于错误的**堆栈信息**，生成错误的唯一ID，上报时去重
 
 - 错误数据聚合 
   1. 服务端汇总整理数据的时候，通过错误唯一ID进行聚合统计
@@ -192,17 +197,25 @@
 
 **作用域隔离：**
 
-​ `try catch`：防止 sdk 的报错反而影响了页面的运行
+ `try catch`：防止 sdk 的报错反而影响了页面的运行
 
 #### 5. 客户端和服务端的时间校对
 
   在请求sdk的时候，通过返回的响应头的 `date` 字段，确定客户端和服务器端的时间差
-  
+
 ---
 
 参考：[说说前端监控平台/监控SDK的架构设计和难点亮点？](https://juejin.cn/post/7108660942686126093)
 
 ### 相关问题
+
+**必要性（为什么要自研）**
+
+- 方便接入公司团队的告警业务
+- 数据定制化，市面上有些无法满足
+- 方便业务拓展，自定义的埋点（结合营销平台组件），热力图等
+- 方便做数据的联动分析，如错误可以联动用户行为回溯
+
 
 **优化**
 
