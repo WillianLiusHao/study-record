@@ -32,10 +32,7 @@ performance.getEntriesByName('first-contentful-paint')[0].startTime
   - 确定采集指标
   - 分析页面
 
-## 一、首屏加载优化
-
-
-### 浏览器渲染进程及工作流程
+## 浏览器渲染进程及工作流程
 
 进程及主要职责
 
@@ -76,11 +73,12 @@ performance.getEntriesByName('first-contentful-paint')[0].startTime
 3. 关键路径长度：通过区分关键资源的优先级来优化被加载关键资源的顺序，来缩短关键路径长度
 
 
-#### DOM
+## 一、Vue首屏加载速度优化
 
-- 特点：增量
+- vue-router 路由懒加载（利用 webpack 代码切割原理） `资源大小`
+- gzip(webpack 和 nginx) `资源大小`
+- UI 按需加载 `资源大小`
+- cdn `资源加载速度`
+- 资源缓存 `减少请求`
+- SSR `减少请求`
 
-
-#### CSSOM
-
-- 特点：渲染阻塞(因为css规则可以覆盖，所以直到DCCOM完成才绘制页面)
