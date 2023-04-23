@@ -8,6 +8,11 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * 算法还是要刷啊 ([74bd576](https://github.com/WillianLiusHao/study-record/commit/74bd576a23e41cea3bc18ad4834e01e92f6cfc34))
+### [1.19.11](https://github.com/WillianLiusHao/study-record/compare/v1.19.8...v1.19.11) (2023-04-18)
+
+### [1.19.10](https://github.com/WillianLiusHao/study-record/compare/v1.19.9...v1.19.10) (2023-04-03)
+
+### [1.19.9](https://github.com/WillianLiusHao/study-record/compare/v1.19.7...v1.19.9) (2023-03-27)
 
 ### [1.19.10](https://github.com/WillianLiusHao/study-record/compare/v1.19.9...v1.19.10) (2023-04-03)
 
