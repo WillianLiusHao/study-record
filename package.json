@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
     "prepare": "husky install",
     "commit": "git add -A && cz && yarn release && git push --follow-tags origin main",
     "release": "standard-version"

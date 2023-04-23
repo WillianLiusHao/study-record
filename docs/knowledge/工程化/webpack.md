@@ -1,5 +1,18 @@
 # Webpack
 
+## 重点难点
+
+- 模块化
+- loader 机制
+- plugin 机制
+- 工作流程
+
+## 打包工具的需求
+
+- 将散落的模块打包到一起
+- 能够编译代码的新特性
+- 能够支持不同种类的前端资源模块
+
 ## 工作流程
 
 ### 1.初始化阶段
@@ -23,6 +36,8 @@
 
 ## plugin
 
+> 核心原理就是 基于 tapable 的发布订阅模式
+
 每个plugin 是一个类，提供 `apply`方法
 
 webpack 在执行过程中会调用 `apply` 方法，且会将 `compiler` 实例传入
@@ -39,3 +54,25 @@ apply(compiler) {
 
 
 ## loader
+
+### 使用
+
+#### 配置
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    },
+    {
+      // ...
+    }
+  ]
+}
+```
+
+#### 多个loader的执行顺序
+
+- 从后往前
