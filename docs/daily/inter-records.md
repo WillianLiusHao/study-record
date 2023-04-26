@@ -115,6 +115,64 @@
 
 - 二面（主要就聊聊项目）
 
+## 六、CVTE
+
+- 一面
+	- 介绍你最有挑战，最复杂的项目（万花筒）
+	- 当时这个项目架构层面有什么考虑（X）
+	- 除了说刚毕业做该项目有挑战，以及单向数据流的数据层面的设计思想，整体项目架构有没有思考
+	- 你工作过程中遇到的比较棘手的点（提示说可以从大层面也可以从小层面展开说）
+	
+	- 闭包理解？
+	- 闭包的优点？
+	- 访问函数内部作用域变量为什么一定要用闭包，我用别的方法不行吗，他真正的优点（面试官想要的闭包能让变量累加,compose函数）？
+	- 为什么闭包会造成内存泄漏？
+	- 内存泄漏时闭包内部的引用关系是怎样的（X）
+	- 怎么判断 基础数据类型和引用数据类型（√）
+	- typeof 和 instanceOf 的实现原理（√）
+	- 为什么 typeof null === 'object'（只回答历史遗留问题，没回答上历史当时怎么让他等于 object 的）
+
+	- 项目中用什么构建工具用的多？
+	- loader 是在什么时候加载的？（回答模块解析的时候）
+	- 构建流程
+	- 有自己写过 plugin 吗？
+
+	- 数据劫持，要求可以监听属性的 获取/修改/删除
+	- 异步代码同步输出 （不可以用async await）
+	```js
+		window.doFetch = function () {
+			return new Promise((resolve, rejected) => {
+				setTimeout(() => {
+					resolve('收到数据了...')
+				}, 2000)
+			})
+		}
+		function getHttpData() {
+			doFetch()
+		}
+		function getData() {
+			getHttpData().
+		}
+		function getResult() {
+			const data = getData()
+			console.log('-getResult-->', data);
+			return data;
+		}
+		getResult() 
+
+		// TODO：希望执行getResult()，可以答应  收到数据了
+	```
+
+	- Vdom 的优点（回答了跨平台和方便diff）
+	- diff 的过程？(v2双端，v3快速)
+	- vue3的diff是怎么运用了 最长递增子序列算法？（只回答最后快速diff完还没结束，就会引入最长递增子系列算法）
+	- vue3的diff有个标记提升的优化你知道吗？（这里说了vue3 4个优化）
+	- 微前端怎么进行样式隔离（shadow dom 和 类名加前缀）
+	- 三次握手中 ACK 报文干什么用的？
+	- 为什么 ACK 报文的响应 ack 是 SYN报文序列 seq + 1？ 
+	- 为什么是三次不是2次或4次
+	- 哪次握手最容易受到攻击？（X）
+
 ## 知识薄弱点
 
 - webpack 不够深入
@@ -129,7 +187,7 @@
 	- 进程/线程
 	- 跨域
 
-- 网络
+- 网络（√）
 	- http
 	- https
 	- tcp

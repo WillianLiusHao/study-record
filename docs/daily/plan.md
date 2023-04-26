@@ -35,3 +35,97 @@
 | 2023.04.27 | 性能优化 | | |
 | 2023.04.28 | 项目 | qiankun源码，动态表单，可视化渲染 | |
 
+
+### 0426
+
+#### css
+
+- flex
+- flex: 1
+
+#### webpack！！！
+
+- 构建过程
+```js
+  - 初始化：1.合并参数 2.生成 complier 对象 3.加载所有配置的 plugin
+  - 编译：1.complier.run 启动打包 2.基于entry 入口，调用 loader 递归解析和构建模块，生成依赖树
+  - 产出：1.将编译好的模块生成 chunk,将 chunk 转成文件，输出到目录中
+
+  (其中 plugin 会在不同的生命周期中(run, emit, done)被执行)
+
+  - 发散
+    - 依赖树是 AST
+    - 模块编译过程涉及了 ast的 解析(parser)/转化(traverse)/生成(generator)
+```
+- loader（√）
+  - 翻译器
+  - 单一职责
+  - 从后往前链式调用
+  - 返回 可执行的 js 字符串
+- plugin（√）
+  - 发布订阅
+  - hooks(run,emit,done)
+  - 基于事件流框架 tapable
+- HMR(？？？)
+
+- sourceMap（√）
+  - .map 文件
+  - 源码映射
+- devServer
+- 文件指纹（√）
+  - filename -> chunkhash
+
+- **webpack 优化**
+- **重点看下写过的 plugin loader**
+  - cdn上传（√）
+  - 路由文件生成
+  - .md loader（输出content是可执行的js字符串）
+- **npm包：虚拟列表**
+
+#### 优化（晚点再看一遍）
+  - 素材资源方面
+    - 图片压缩
+    - 代码 gzip
+    - cdn
+  - 加载优化/首屏等
+    - http2
+    - 路由懒加载
+    - 图片懒加载
+    - 第三方库按需加载
+    - 减少回流重绘
+  - 代码
+    - keep-alive 缓存
+    - 防抖节流
+    - if/show的正确使用
+#### 浏览器
+- `安全`
+  - 怎么进行 CSRF攻击
+- `浏览器存储`（√）
+  - cookie：4kb
+    - 常用属性：domain，expires/amx-age，httpOnly，sameSite
+  - sessionStorage：5M
+  - localStorage：5M
+-` 页面资源加载规则`（√）
+  - css不阻塞dom解析
+  - js阻塞dom解析
+    - async：
+    - defer：不阻塞，domcontentload之前
+
+- `垃圾回收`（√）
+  - 引用计数
+  - 标记清除
+    - 问题：内存不连续，分配速度慢（进行标记整理解决）
+    - V8新老生代垃圾回收
+- `回流重绘`（√）
+  - GPU加速
+    渲染过程中，dom树css树计算，布局和绘制都是CPU完成，可通过 CSS3 transform 和 opacity 进行GPU加速
+  - 回流
+    - getComputedStyle
+    - getBoundingClientRect
+
+#### 项目
+  - 缓存（√）
+    - 浏览器缓存
+    - vue 组件缓存 keep-alive
+    - 浏览器存储 cookie storage
+    - 后端数据缓存 redis
