@@ -2,7 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.20.5](https://github.com/WillianLiusHao/study-record/compare/v1.20.4...v1.20.5) (2023-05-01)
+### [1.20.6](https://github.com/WillianLiusHao/study-record/compare/v1.20.4...v1.20.5) (2023-05-01)
+### [1.20.5](https://github.com/WillianLiusHao/study-record/compare/v1.20.4...v1.20.5) (2023-04-28)
 
 ### [1.20.4](https://github.com/WillianLiusHao/study-record/compare/v1.20.3...v1.20.4) (2023-04-26)
 
