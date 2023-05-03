@@ -23,7 +23,7 @@ function buildChildren(path, parentName = "") {
       } else {
         if(!file.endsWith('.md')) return
 
-        current.path = encodeURI(`${parentName}/${file.slice(0, file.includes('README.md') ? -9 : -3)}`)
+        current.path = encodeURI(`${parentName}/${file.slice(0, file.includes('index.md') ? -9 : -3)}`)
         
       }
       return current;
