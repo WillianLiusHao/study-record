@@ -1,4 +1,3 @@
-
 const fs = require("fs");
 const path = require("path");
 const process = require("process");
@@ -37,6 +36,7 @@ module.exports = {
   title: "前端随笔 WillianLiusHao",
   description:
     "勤学如春起之苗，不见其增，日有所长",
+  port: 426,
   themeConfig: {
     nav: [{ text: "GitHub", link: "https://github.com/WillianLiusHao" }],
     sidebar,
