@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/WillianLiusHao/study-record/compare/v1.20.12...v1.21.0) (2026-04-17)
+
+
+### Features
+
+* 准备前端面试 ([26e5f0f](https://github.com/WillianLiusHao/study-record/commit/26e5f0f723edd80913f0aca4e11368015d6adc5e))
+
 ### [1.20.12](https://github.com/WillianLiusHao/study-record/compare/v1.20.11...v1.20.12) (2025-07-08)
 
 ### [1.20.11](https://github.com/WillianLiusHao/study-record/compare/v1.20.10...v1.20.11) (2025-07-04)
