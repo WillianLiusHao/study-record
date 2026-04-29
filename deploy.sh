@@ -9,6 +9,11 @@ npm run build
 # 进入生成的文件夹
 cd dist
 
+# GitHub Pages may still be configured to publish from the /docs folder.
+# Keep a copy there so both "gh-page /" and "gh-page /docs" work.
+mkdir -p docs
+find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'docs' -exec cp -R {} docs/ \;
+
 # 如果是发布到自定义域名
 # echo 'www.example.com' > CNAME
 
